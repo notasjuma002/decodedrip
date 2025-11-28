@@ -1,0 +1,88 @@
+import { TranslationStructure } from '../types';
+
+export const fr: TranslationStructure = {
+  nav: {
+    home: "Accueil",
+    shop: "Boutique",
+    faq: "FAQ",
+    contact: "Contact",
+    launch: "Lancement CAF 2025"
+  },
+  hero: {
+    headline: "EXPLOREZ RESSENTEZ CÉLÉBREZ",
+    subtext: "TOTALENERGIES AFCON 2025, c'est bien plus qu'une compétition !",
+    cta_primary: "Voir la Collection",
+    cta_secondary: "Voir la collection"
+  },
+  common: {
+    view_item: "Voir l'article",
+    add_to_cart: "Ajouter au panier",
+    checkout: "Commander",
+    total: "Total",
+    quantity: "Qté",
+    color: "Couleur",
+    size: "Taille",
+    select_size: "Choisir la taille",
+    remove: "Retirer",
+    loading: "Chargement...",
+    price: "Prix",
+    featured: "Articles en vedette",
+    rights: "© 2025 Lions de l'Atlas Officiel. Tous droits réservés.",
+    authentic: "SOUTENEZ VOTRE PAYS AVEC PASSION",
+    authentic_desc: "Vivez la fierté des Lions de l'Atlas. Notre collection 2025 capture l'esprit du jeu et le cœur du Maroc, conçue pour les tribunes et la rue.",
+    licensed: "Produit Officiel Sous Licence",
+    newsletter_title: "Rejoignez la Meute",
+    newsletter_desc: "Inscrivez-vous pour des sorties exclusives et des nouvelles de la CAF 2025.",
+    subscribe: "S'inscrire",
+    secure_payment: "Paiement sécurisé garanti.",
+    returns_policy: "Politique de retour",
+    returns_desc: "Vous disposez de 60 jours pour retourner les articles en utilisant l'une des méthodes suivantes :",
+    social_share: "Partager :",
+    delivery_terms: "Conditions de livraison",
+    size_guide: "Guide des tailles"
+  },
+  shop: {
+    title: "La Boutique",
+    subtitle: "Marchandise Officielle CAF 2025",
+    filter_all: "Tout",
+    hoodie: "Sweat à capuche",
+    tshirt: "T-Shirt",
+    sweater: "Pull",
+    accessories: "Accessoires",
+    empty: "Aucun produit trouvé dans cette catégorie.",
+    sort_by: "Trier par",
+    price_low_high: "Prix : Croissant",
+    price_high_low: "Prix : Décroissant",
+    newest: "Nouveautés"
+  },
+  cart: {
+    title: "Votre Panier",
+    empty: "Votre panier est vide.",
+    subtotal: "Sous-total",
+    proceed: "Passer à la caisse"
+  },
+  checkout: {
+    title: "Paiement Sécurisé",
+    contact_info: "Informations de contact",
+    full_name: "Nom complet",
+    phone: "Numéro de téléphone",
+    country: "Pays (Région CAF)",
+    city: "Ville",
+    address: "Adresse",
+    email: "Email (Optionnel)",
+    notes: "Notes (Optionnel)",
+    submit: "Confirmer la commande",
+    success_alert: "Commande soumise avec succès ! Vérifiez la console pour les détails.",
+    empty_cart: "Votre panier est vide."
+  },
+  faq: {
+    title: "Questions Fréquentes",
+    q1: "Quand la collection est-elle lancée ?", a1: "La prévente officielle commence maintenant. La distribution mondiale complète commence peu avant la CAF 2025.",
+    q2: "Expédiez-vous à l'international ?", a2: "Oui, nous expédions vers toutes les nations de la CAF et les grands hubs internationaux.",
+    q3: "Comment taillent les vêtements ?", a3: "Nos coupes sont fidèles à la taille. Nous recommandons de prendre une taille au-dessus pour une coupe décontractée.",
+    q4: "Quels matériaux sont utilisés ?", a4: "Nous utilisons du coton biologique de qualité supérieure et des mélanges recyclés adaptés au climat marocain."
+  },
+  footer: {
+    rights: "© 2025 Lions de l'Atlas Officiel. Tous droits réservés."
+  }
+};

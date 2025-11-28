@@ -1,0 +1,88 @@
+import { TranslationStructure } from '../types';
+
+export const en: TranslationStructure = {
+  nav: {
+    home: "Home",
+    shop: "Shop",
+    faq: "FAQ",
+    contact: "Contact",
+    launch: "CAF 2025 Launch"
+  },
+  hero: {
+    headline: "EXPLORE FEEL CELEBRATE",
+    subtext: "TOTALENERGIES AFCON 2025, it's much more than just a competition!",
+    cta_primary: "Shop Collection",
+    cta_secondary: "Shop Collection"
+  },
+  common: {
+    view_item: "View Item",
+    add_to_cart: "Add to Cart",
+    checkout: "Checkout Now",
+    total: "Total",
+    quantity: "Qty",
+    color: "Color",
+    size: "Size",
+    select_size: "Select Size",
+    remove: "Remove",
+    loading: "Loading...",
+    price: "Price",
+    featured: "Featured Drops",
+    rights: "© 2025 Atlas Lions Official. All rights reserved.",
+    authentic: "SUPPORT YOUR COUNTRY WITH PASSION",
+    authentic_desc: "Experience the pride of the Atlas Lions. Our 2025 collection captures the spirit of the game and the heart of Morocco, designed for the streets and the stands.",
+    licensed: "Official Licensed Product",
+    newsletter_title: "Join the Pride",
+    newsletter_desc: "Sign up for exclusive drops and CAF 2025 news.",
+    subscribe: "Sign Up",
+    secure_payment: "Secure your payment guarantee.",
+    returns_policy: "Return Policy",
+    returns_desc: "You have 60 days to return the item(s) using any of the following methods:",
+    social_share: "Social Share:",
+    delivery_terms: "Delivery Terms & Condition",
+    size_guide: "View Size Chart"
+  },
+  shop: {
+    title: "Shop Collection",
+    subtitle: "Official CAF 2025 Merchandise",
+    filter_all: "All",
+    hoodie: "Hoodie",
+    tshirt: "T-Shirt",
+    sweater: "Sweater",
+    accessories: "Accessories",
+    empty: "No products found in this category.",
+    sort_by: "Sort By",
+    price_low_high: "Price: Low to High",
+    price_high_low: "Price: High to Low",
+    newest: "Newest Arrivals"
+  },
+  cart: {
+    title: "Your Bag",
+    empty: "Your bag is empty.",
+    subtotal: "Subtotal",
+    proceed: "Proceed to Checkout"
+  },
+  checkout: {
+    title: "Secure Checkout",
+    contact_info: "Contact Information",
+    full_name: "Full Name",
+    phone: "Phone Number",
+    country: "Country (CAF Region)",
+    city: "City",
+    address: "Address",
+    email: "Email (Optional)",
+    notes: "Notes (Optional)",
+    submit: "Confirm Order",
+    success_alert: "Order successfully submitted! Check console for details.",
+    empty_cart: "Your cart is empty."
+  },
+  faq: {
+    title: "Frequently Asked Questions",
+    q1: "When does the collection launch?", a1: "The official pre-sale begins now. Full global distribution starts shortly before CAF 2025.",
+    q2: "Do you ship internationally?", a2: "Yes, we ship to all CAF nations and major international hubs.",
+    q3: "How do sizes run?", a3: "Our fits are true to size. We recommend sizing up for a relaxed stadium fit.",
+    q4: "What materials are used?", a4: "We use premium organic cotton and recycled blends suitable for the Moroccan climate."
+  },
+  footer: {
+    rights: "© 2025 Atlas Lions Official. All rights reserved."
+  }
+};
