@@ -38,7 +38,7 @@ export const useStore = create<AppState>()(
           // Update quantity if exact item exists
           const newCart = [...state.cart];
           newCart[existingItemIndex].quantity += quantity;
-          return { cart: newCart, isCartOpen: true };
+          return { cart: newCart };
         } else {
           // Add new item
           const newItem: CartItem = {
@@ -48,7 +48,7 @@ export const useStore = create<AppState>()(
             quantity,
             cartId: `${product.id}-${color}-${size}-${Date.now()}`
           };
-          return { cart: [...state.cart, newItem], isCartOpen: true };
+          return { cart: [...state.cart, newItem] };
         }
       }),
 

@@ -17,7 +17,7 @@ const ProductDetails: React.FC = () => {
     const product = products.find(p => p.id === id);
 
     const [selectedColor, setSelectedColor] = useState<'Black' | 'White'>('Black');
-    const [selectedSize, setSelectedSize] = useState<string>('M');
+    const [selectedSize] = useState<string>('XL'); // Fixed to XL
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
 
@@ -25,8 +25,6 @@ const ProductDetails: React.FC = () => {
     useEffect(() => {
         if (product) {
             setCurrentImageIndex(0);
-            setQuantity(1);
-            setSelectedSize('M');
             setSelectedColor('Black');
         }
     }, [product]);
@@ -42,15 +40,23 @@ const ProductDetails: React.FC = () => {
         );
     }
 
-    const images = product.images && product.images.length > 0 ? product.images : [product.image];
-    const sizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+    // Different images for each color variant
+    const blackImages = product.images && product.images.length > 0 ? product.images : [product.image];
+    const whiteImages = product.images && product.images.length > 1 ? [product.images[1], product.images[2] || product.images[0]] : [product.image];
 
-    // 3 Color variants
+    // Get current images based on selected color
+    const currentImages = selectedColor === 'Black' ? blackImages : whiteImages;
+
+    // 2 Color variants only
     const colors = [
         { name: 'Black', bgClass: 'bg-black' },
-        { name: 'White', bgClass: 'bg-white border-2 border-morocco-dark/20' },
-        { name: 'Red', bgClass: 'bg-morocco-red' }
+        { name: 'White', bgClass: 'bg-white border-2 border-morocco-dark/20' }
     ];
+
+    const handleColorChange = (color: 'Black' | 'White') => {
+        setSelectedColor(color);
+        setCurrentImageIndex(0); // Reset to first image when switching colors
+    };
 
     const handleAddToCart = () => {
         addToCart(product, selectedColor, selectedSize, quantity);
@@ -62,11 +68,11 @@ const ProductDetails: React.FC = () => {
     };
 
     const nextImage = () => {
-        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        setCurrentImageIndex((prev) => (prev + 1) % currentImages.length);
     };
 
     const prevImage = () => {
-        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+        setCurrentImageIndex((prev) => (prev - 1 + currentImages.length) % currentImages.length);
     };
 
     return (
@@ -88,13 +94,13 @@ const ProductDetails: React.FC = () => {
                         {/* Main Image - Square */}
                         <div className="relative aspect-square w-full bg-morocco-neutral/20 overflow-hidden rounded-xl group shadow-lg">
                             <img
-                                src={images[currentImageIndex]}
-                                alt={product.name[language]}
+                                src={currentImages[currentImageIndex]}
+                                alt={`${product.name[language]} - ${selectedColor}`}
                                 className="w-full h-full object-cover transition-transform duration-500"
                             />
 
                             {/* Navigation Arrows */}
-                            {images.length > 1 && (
+                            {currentImages.length > 1 && (
                                 <>
                                     <button
                                         onClick={prevImage}
@@ -113,9 +119,9 @@ const ProductDetails: React.FC = () => {
                         </div>
 
                         {/* Thumbnails - Square */}
-                        {images.length > 1 && (
+                        {currentImages.length > 1 && (
                             <div className="grid grid-cols-4 gap-3">
-                                {images.map((img, idx) => (
+                                {currentImages.map((img, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => setCurrentImageIndex(idx)}
@@ -155,7 +161,7 @@ const ProductDetails: React.FC = () => {
                             </p>
                         </div>
 
-                        {/* Color Selection - 3 Variants */}
+                        {/* Color Selection - Black & White Only */}
                         <div className="mb-8">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="font-bold text-morocco-dark">Color:</span>
@@ -165,8 +171,8 @@ const ProductDetails: React.FC = () => {
                                 {colors.map((color) => (
                                     <button
                                         key={color.name}
-                                        onClick={() => setSelectedColor(color.name as 'Black' | 'White')}
-                                        className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all ${selectedColor === color.name ? 'border-morocco-dark ring-2 ring-morocco-dark/30' : 'border-morocco-neutral hover:border-morocco-dark/50'}`}
+                                        onClick={() => handleColorChange(color.name as 'Black' | 'White')}
+                                        className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all cursor-pointer ${selectedColor === color.name ? 'border-morocco-dark ring-2 ring-morocco-dark/30 scale-110' : 'border-morocco-neutral hover:border-morocco-dark/50 hover:scale-105'}`}
                                     >
                                         <div className={`w-10 h-10 rounded-lg ${color.bgClass}`} />
                                     </button>
@@ -174,30 +180,36 @@ const ProductDetails: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Size Selection */}
-                        <div className="mb-10">
-                            <div className="flex justify-between items-center mb-4">
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-morocco-dark">Size:</span>
-                                    <span className="font-bold text-morocco-dark">{selectedSize}</span>
-                                </div>
-                                <button className="text-xs underline text-morocco-dark/60 hover:text-morocco-red">
-                                    {t.size_guide}
+                        {/* Quantity Selector */}
+                        <div className="mb-8">
+                            <div className="flex items-center gap-2 mb-4">
+                                <span className="font-bold text-morocco-dark">Quantity:</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    className="w-12 h-12 rounded-xl border-2 border-morocco-neutral hover:border-morocco-dark flex items-center justify-center text-xl font-bold text-morocco-dark transition-all hover:bg-morocco-neutral"
+                                >
+                                    −
+                                </button>
+                                <span className="text-2xl font-bold text-morocco-dark min-w-[3rem] text-center">{quantity}</span>
+                                <button
+                                    onClick={() => setQuantity(quantity + 1)}
+                                    className="w-12 h-12 rounded-xl border-2 border-morocco-neutral hover:border-morocco-dark flex items-center justify-center text-xl font-bold text-morocco-dark transition-all hover:bg-morocco-neutral"
+                                >
+                                    +
                                 </button>
                             </div>
-                            <div className="flex flex-wrap gap-3">
-                                {sizes.map((size) => (
-                                    <button
-                                        key={size}
-                                        onClick={() => setSelectedSize(size)}
-                                        className={`min-w-[3.5rem] h-14 px-3 rounded-xl border-2 text-sm font-bold flex items-center justify-center transition-all ${selectedSize === size
-                                            ? 'bg-morocco-dark text-white border-morocco-dark shadow-lg'
-                                            : 'bg-white text-morocco-dark border-morocco-neutral hover:border-morocco-dark/50'
-                                            }`}
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
+                        </div>
+
+                        {/* Size Display - XL Only */}
+                        <div className="mb-10">
+                            <div className="flex items-center gap-2 mb-4">
+                                <span className="font-bold text-morocco-dark">Size:</span>
+                                <span className="font-bold text-morocco-dark">XL</span>
+                            </div>
+                            <div className="bg-morocco-neutral/30 border border-morocco-neutral rounded-xl px-6 py-4 inline-block">
+                                <span className="text-sm font-bold text-morocco-dark">Available Size: XL</span>
                             </div>
                         </div>
 

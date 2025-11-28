@@ -3,6 +3,61 @@ import { useRouter } from 'next/navigation';
 import { useStore } from '@/app/store/useStore';
 import { locales, cafCountries } from '@/app/locales';
 
+// Country flag mapping (using emoji flags)
+const countryFlags: { [key: string]: string } = {
+  'Morocco': '🇲🇦',
+  'Algeria': '🇩🇿',
+  'Tunisia': '🇹🇳',
+  'Egypt': '🇪🇬',
+  'Libya': '🇱🇾',
+  'Mauritania': '🇲🇷',
+  'Sudan': '🇸🇩',
+  'Mali': '🇲🇱',
+  'Niger': '🇳🇪',
+  'Chad': '🇹🇩',
+  'Somalia': '🇸🇴',
+  'Djibouti': '🇩🇯',
+  'Comoros': '🇰🇲',
+  'Senegal': '🇸🇳',
+  'Gambia': '🇬🇲',
+  'Guinea': '🇬🇳',
+  'Guinea-Bissau': '🇬🇼',
+  'Sierra Leone': '🇸🇱',
+  'Liberia': '🇱🇷',
+  'Ivory Coast': '🇨🇮',
+  'Ghana': '🇬🇭',
+  'Togo': '🇹🇬',
+  'Benin': '🇧🇯',
+  'Nigeria': '🇳🇬',
+  'Cameroon': '🇨🇲',
+  'Central African Republic': '🇨🇫',
+  'Equatorial Guinea': '🇬🇶',
+  'Gabon': '🇬🇦',
+  'Republic of the Congo': '🇨🇬',
+  'DR Congo': '🇨🇩',
+  'Angola': '🇦🇴',
+  'Zambia': '🇿🇲',
+  'Zimbabwe': '🇿🇼',
+  'Malawi': '🇲🇼',
+  'Mozambique': '🇲🇿',
+  'Namibia': '🇳🇦',
+  'Botswana': '🇧🇼',
+  'South Africa': '🇿🇦',
+  'Lesotho': '🇱🇸',
+  'Eswatini': '🇸🇿',
+  'Madagascar': '🇲🇬',
+  'Mauritius': '🇲🇺',
+  'Seychelles': '🇸🇨',
+  'Kenya': '🇰🇪',
+  'Uganda': '🇺🇬',
+  'Tanzania': '🇹🇿',
+  'Rwanda': '🇷🇼',
+  'Burundi': '🇧🇮',
+  'Ethiopia': '🇪🇹',
+  'Eritrea': '🇪🇷',
+  'South Sudan': '🇸🇸'
+};
+
 const Checkout: React.FC = () => {
   const { cart, getCartTotal, language, clearCart } = useStore();
   const router = useRouter();
@@ -40,140 +95,200 @@ const Checkout: React.FC = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-        <h2 className="text-2xl font-bold text-morocco-dark">{t.empty_cart}</h2>
-        <button onClick={() => router.push('/shop')} className="text-morocco-red underline">{locales[language].nav.shop}</button>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
+        <h2 className="text-3xl font-bold text-morocco-dark mb-4">{t.empty_cart}</h2>
+        <p className="text-morocco-dark/60 mb-8">Add some items to your cart to continue</p>
+        <button
+          onClick={() => router.push('/shop')}
+          className="bg-morocco-dark text-white px-8 py-3 font-semibold hover:bg-black transition-colors"
+        >
+          {locales[language].nav.shop}
+        </button>
       </div>
     )
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-bold text-morocco-dark mb-12 uppercase tracking-widest font-serif border-b border-morocco-gold/20 pb-4">
-        {t.title}
-      </h1>
+    <div className="bg-gray-50 min-h-screen py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Form */}
-        <div>
-          <h2 className="text-xl font-bold mb-6 text-morocco-green">{t.contact_info}</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid lg:grid-cols-2 gap-8">
 
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-morocco-dark/80">{t.full_name} *</label>
-              <input
-                required
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-              />
-            </div>
+          {/* Form Section */}
+          <div>
+            <h1 className="text-2xl font-bold text-morocco-dark mb-8">
+              {t.contact_info}
+            </h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-morocco-dark/80">{t.phone} *</label>
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Full Name */}
+              <div>
+                <label className="block text-sm font-medium text-morocco-dark mb-2">
+                  {t.full_name}<span className="text-red-500">*</span>
+                </label>
                 <input
                   required
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
+                  name="fullName"
+                  value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
+                  placeholder="Enter your full name"
+                  className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors"
                 />
               </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-morocco-dark/80">{t.email}</label>
-                <input
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-                />
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-morocco-dark/80">{t.country} *</label>
-                <select
-                  required
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-                >
-                  {cafCountries.map(country => (
-                    <option key={country} value={country}>{country}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-morocco-dark/80">{t.city} *</label>
-                <input
-                  required
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-morocco-dark/80">{t.address} *</label>
-              <textarea
-                required
-                name="address"
-                rows={3}
-                value={formData.address}
-                onChange={handleChange}
-                className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-morocco-dark/80">{t.notes}</label>
-              <textarea
-                name="notes"
-                rows={2}
-                value={formData.notes}
-                onChange={handleChange}
-                className="w-full bg-white border border-morocco-dark/10 p-3 outline-none focus:border-morocco-gold transition-colors"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-morocco-red text-white py-4 font-bold tracking-widest uppercase hover:bg-morocco-dark transition-colors mt-8"
-            >
-              {t.submit}
-            </button>
-          </form>
-        </div>
-
-        {/* Order Summary */}
-        <div className="bg-white p-8 h-fit border border-morocco-neutral">
-          <h2 className="text-xl font-bold mb-6 text-morocco-dark">{commonT.total}</h2>
-          <div className="space-y-4 mb-6">
-            {cart.map(item => (
-              <div key={item.cartId} className="flex justify-between items-start text-sm">
-                <div className="flex gap-4">
-                  <span className="font-bold text-morocco-dark/50">{item.quantity}x</span>
-                  <div>
-                    <p className="font-medium text-morocco-dark">{item.name[language]}</p>
-                    <p className="text-xs text-morocco-dark/50">{item.selectedColor}</p>
-                  </div>
+              {/* Email & Phone */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-morocco-dark mb-2">
+                    {t.email}<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    required
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors"
+                  />
                 </div>
-                <span className="font-bold text-morocco-dark">{item.price * item.quantity} MAD</span>
+                <div>
+                  <label className="block text-sm font-medium text-morocco-dark mb-2">
+                    {t.phone}<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    required
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+212 6XX XXX XXX"
+                    className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors"
+                  />
+                </div>
               </div>
-            ))}
+
+              {/* Country & City */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-morocco-dark mb-2">
+                    {t.country}<span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    required
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors cursor-pointer"
+                  >
+                    {cafCountries.map(country => (
+                      <option key={country} value={country}>
+                        {countryFlags[country] || '🌍'} {country}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-morocco-dark mb-2">
+                    {t.city}<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    required
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    placeholder="City"
+                    className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="block text-sm font-medium text-morocco-dark mb-2">
+                  {t.address}<span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  required
+                  name="address"
+                  rows={3}
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Enter your address..."
+                  className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors resize-none"
+                />
+              </div>
+
+              {/* Notes */}
+              <div>
+                <label className="block text-sm font-medium text-morocco-dark mb-2">
+                  {t.notes}
+                </label>
+                <textarea
+                  name="notes"
+                  rows={3}
+                  value={formData.notes}
+                  onChange={handleChange}
+                  placeholder="Enter a description..."
+                  className="w-full bg-white border border-gray-300 rounded px-4 py-3 text-sm outline-none focus:border-gray-400 transition-colors resize-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full bg-morocco-dark text-white py-4 font-bold uppercase tracking-wide hover:bg-black transition-colors mt-6"
+              >
+                {t.submit}
+              </button>
+            </form>
           </div>
 
-          <div className="border-t border-morocco-dark/10 pt-6 flex justify-between items-center text-xl font-bold">
-            <span>{locales[language].cart.subtotal}</span>
-            <span className="text-morocco-green">{getCartTotal()} MAD</span>
+          {/* Cart Summary */}
+          <div>
+            <div className="bg-white rounded p-6">
+              <h2 className="text-xl font-bold text-morocco-dark mb-6">
+                Your Cart
+              </h2>
+
+              {/* Cart Items */}
+              <div className="space-y-4 mb-6">
+                {cart.map(item => (
+                  <div key={item.cartId} className="flex gap-4">
+                    <div className="relative flex-shrink-0">
+                      <img
+                        src={item.image}
+                        alt={item.name[language]}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                      <div className="absolute -top-2 -right-2 bg-black text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">
+                        {item.quantity}
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-morocco-dark text-sm truncate">{item.name[language]}</p>
+                      <p className="text-xs text-gray-500 capitalize">{item.selectedColor} • {item.selectedSize}</p>
+                    </div>
+                    <div className="font-bold text-morocco-dark whitespace-nowrap">
+                      {item.price * item.quantity} MAD
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Totals */}
+              <div className="border-t border-gray-200 pt-4 space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Subtotal</span>
+                  <span className="font-semibold text-morocco-dark">{getCartTotal()} MAD</span>
+                </div>
+                <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200">
+                  <span className="text-morocco-dark">Total</span>
+                  <span className="text-morocco-dark">{getCartTotal()} MAD</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
