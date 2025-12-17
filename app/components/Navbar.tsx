@@ -1,16 +1,21 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { FaShoppingBag, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
-import { useStore } from '@/app/store/useStore';
-import { locales } from '@/app/locales';
-import { Language } from '@/app/types';
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { FaShoppingBag, FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
+import { useStore } from "@/app/store/useStore";
+import { locales } from "@/app/locales";
+import { Language } from "@/app/types";
 
 const Navbar: React.FC = () => {
   const { language, setLanguage, cart, toggleCart } = useStore();
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,21 +30,22 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const t = locales[language].nav;
 
-  const isHome = pathname === '/';
+  const isHome = pathname === "/";
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   // Language Config
   const languages: { code: Language; label: string; flag: string }[] = [
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'ar', label: 'العربية', flag: '🇲🇦' },
+    { code: "en", label: "English", flag: "🇺🇸" },
+    { code: "fr", label: "Français", flag: "🇫🇷" },
+    { code: "ar", label: "العربية", flag: "🇲🇦" },
   ];
 
-  const currentLang = languages.find(l => l.code === language) || languages[0];
+  const currentLang =
+    languages.find((l) => l.code === language) || languages[0];
 
   useEffect(() => {
     // Target: Dec 21, 2025 (Projected start of AFCON 2025)
-    const targetDate = new Date('2025-12-21T20:00:00').getTime();
+    const targetDate = new Date("2025-12-21T20:00:00").getTime();
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -50,7 +56,9 @@ const Navbar: React.FC = () => {
       } else {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -59,7 +67,10 @@ const Navbar: React.FC = () => {
 
     // Click outside to close lang menu
     const handleClickOutside = (event: MouseEvent) => {
-      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
+      if (
+        langMenuRef.current &&
+        !langMenuRef.current.contains(event.target as Node)
+      ) {
         setLangMenuOpen(false);
       }
     };
@@ -73,12 +84,12 @@ const Navbar: React.FC = () => {
         setIsScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       clearInterval(timer);
       document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -102,17 +113,18 @@ const Navbar: React.FC = () => {
   const getNavbarBgClass = () => {
     if (isHome) {
       return isScrolled
-        ? 'bg-morocco-dark/95 backdrop-blur-md shadow-lg border-b border-morocco-gold/10'
-        : 'bg-gradient-to-b from-black/60 to-transparent border-transparent';
+        ? "bg-morocco-dark/95 backdrop-blur-md shadow-lg border-b border-morocco-gold/10"
+        : "bg-gradient-to-b from-black/60 to-transparent border-transparent";
     }
-    return 'bg-morocco-neutral/95 backdrop-blur-sm shadow-sm';
+    return "bg-morocco-neutral/95 backdrop-blur-sm shadow-sm";
   };
 
   // Logic to show/hide Top Bar
   // Hide on Home initially, Show on Scroll OR Show on other pages
   const showTopBar = !isHome || isScrolled;
 
-  const shouldUseWhiteText = isHome && !isScrolled ? true : isHome && isScrolled ? true : false;
+  const shouldUseWhiteText =
+    isHome && !isScrolled ? true : isHome && isScrolled ? true : false;
   // Actually simpler: Home is always white text (on Hero or Dark Nav), Other pages are Dark text.
   // Wait, if Home Scrolled is Dark BG, White Text is correct.
   // If Home Top is Transparent (on Image), White Text is correct.
@@ -120,8 +132,12 @@ const Navbar: React.FC = () => {
 
   const isTextWhite = isHome; // Always white on Home (Hero or Scrolled Dark)
 
-  const navTextClass = isTextWhite ? 'text-white hover:text-morocco-gold' : 'text-morocco-dark hover:text-morocco-red';
-  const navActiveTextClass = isTextWhite ? 'text-morocco-gold font-bold' : 'text-morocco-red font-bold';
+  const navTextClass = isTextWhite
+    ? "text-white hover:text-morocco-gold"
+    : "text-morocco-dark hover:text-morocco-red";
+  const navActiveTextClass = isTextWhite
+    ? "text-morocco-gold font-bold"
+    : "text-morocco-red font-bold";
 
   // REMOVED border-b-2 logic
   const getLinkClass = (path: string) => `
@@ -135,22 +151,27 @@ const Navbar: React.FC = () => {
     <div className="fixed w-full z-50 flex flex-col items-center">
       {/* Top Bar Countdown - Centered - Conditional Display with Animation */}
       <div
-        className={`w-full bg-black/80 backdrop-blur-md text-white text-center text-xs font-mono tracking-widest flex justify-center items-center overflow-hidden transition-all duration-500 ease-in-out ${showTopBar ? 'max-h-12 py-2.5 opacity-100' : 'max-h-0 py-0 opacity-0'
-          }`}
+        className={`w-full bg-black/80 backdrop-blur-md text-white text-center text-xs font-mono tracking-widest flex justify-center items-center overflow-hidden transition-all duration-500 ease-in-out ${
+          showTopBar ? "max-h-12 py-2.5 opacity-100" : "max-h-0 py-0 opacity-0"
+        }`}
       >
         <div className="flex items-center">
           <span className="opacity-80 mr-2 hidden sm:inline">{t.launch}</span>
           <span className="font-bold text-morocco-gold bg-white/10 px-2 py-0.5 rounded">
-            {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+            {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m{" "}
+            {timeLeft.seconds}s
           </span>
         </div>
       </div>
 
       {/* Main Navbar */}
-      <nav className={`w-full transition-all duration-500 ease-in-out ${getNavbarBgClass()}`}>
+      <nav
+        className={`w-full transition-all duration-500 ease-in-out ${getNavbarBgClass()}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`flex justify-between items-center transition-all duration-500 ${showTopBar ? 'h-16' : 'h-24'}`}>
-
+          <div
+            className={`flex justify-between items-center transition-all duration-500 ${showTopBar ? "h-16" : "h-24"}`}
+          >
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -161,31 +182,63 @@ const Navbar: React.FC = () => {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex flex-col items-center md:items-start group" onClick={() => setMobileMenuOpen(false)}>
-              <span className={`text-2xl font-bold tracking-widest font-sans uppercase transition-colors ${isTextWhite ? 'text-white' : 'text-morocco-red'}`}>Atlas</span>
-              <span className={`text-xs tracking-[0.3em] uppercase transition-colors ${isTextWhite ? 'text-white/80 group-hover:text-morocco-gold' : 'text-morocco-green group-hover:text-morocco-gold'}`}>Lions 2025</span>
+            <Link
+              href="/"
+              className="flex flex-col items-center md:items-start group"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span
+                className={`text-2xl font-bold tracking-widest font-sans uppercase transition-colors ${isTextWhite ? "text-white" : "text-morocco-red"}`}
+              >
+                Decode
+              </span>
+              <span
+                className={`text-xs tracking-[0.3em] uppercase transition-colors ${isTextWhite ? "text-white/80 group-hover:text-morocco-gold" : "text-morocco-green group-hover:text-morocco-gold"}`}
+              >
+                Caf Drip Collection
+              </span>
             </Link>
 
             {/* Desktop Links - Centered */}
             <div className="hidden md:flex flex-1 justify-center items-center space-x-12 rtl:space-x-reverse">
-              <button onClick={() => handleNavClick('/')} className={getLinkClass('/')}>{t.home}</button>
-              <button onClick={() => handleNavClick('/shop')} className={getLinkClass('/shop')}>{t.shop}</button>
-              <button className={buttonClass} title="Coming Soon">{t.faq}</button>
-              <button className={buttonClass} title="Coming Soon">{t.contact}</button>
+              <button
+                onClick={() => handleNavClick("/")}
+                className={getLinkClass("/")}
+              >
+                {t.home}
+              </button>
+              <button
+                onClick={() => handleNavClick("/shop")}
+                className={getLinkClass("/shop")}
+              >
+                {t.shop}
+              </button>
+              <button className={buttonClass} title="Coming Soon">
+                {t.faq}
+              </button>
+              <button className={buttonClass} title="Coming Soon">
+                {t.contact}
+              </button>
             </div>
 
             {/* Right Side: Lang, Cart */}
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-
               {/* Language Dropdown */}
               <div className="relative hidden sm:block" ref={langMenuRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors ${isTextWhite ? 'border-white/30 hover:bg-white/10 text-white' : 'border-morocco-gold/30 hover:bg-morocco-gold/10 text-morocco-dark'}`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors ${isTextWhite ? "border-white/30 hover:bg-white/10 text-white" : "border-morocco-gold/30 hover:bg-morocco-gold/10 text-morocco-dark"}`}
                 >
-                  <span className="text-lg leading-none">{currentLang.flag}</span>
-                  <span className="text-xs font-bold hidden lg:block">{currentLang.label}</span>
-                  <FaChevronDown size={10} className={`transition-transform ${langMenuOpen ? 'rotate-180' : ''}`} />
+                  <span className="text-lg leading-none">
+                    {currentLang.flag}
+                  </span>
+                  <span className="text-xs font-bold hidden lg:block">
+                    {currentLang.label}
+                  </span>
+                  <FaChevronDown
+                    size={10}
+                    className={`transition-transform ${langMenuOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
 
                 {langMenuOpen && (
@@ -193,8 +246,11 @@ const Navbar: React.FC = () => {
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => { setLanguage(lang.code); setLangMenuOpen(false); }}
-                        className={`w-full text-left rtl:text-right px-4 py-3 text-sm flex items-center gap-3 hover:bg-morocco-neutral transition-colors ${language === lang.code ? 'bg-morocco-neutral font-bold text-morocco-red' : 'text-morocco-dark'}`}
+                        onClick={() => {
+                          setLanguage(lang.code);
+                          setLangMenuOpen(false);
+                        }}
+                        className={`w-full text-left rtl:text-right px-4 py-3 text-sm flex items-center gap-3 hover:bg-morocco-neutral transition-colors ${language === lang.code ? "bg-morocco-neutral font-bold text-morocco-red" : "text-morocco-dark"}`}
                       >
                         <span className="text-xl">{lang.flag}</span>
                         <span>{lang.label}</span>
@@ -225,36 +281,34 @@ const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-morocco-neutral border-t border-morocco-gold/20 absolute w-full left-0 top-full py-4 px-6 shadow-lg flex flex-col space-y-4 h-[calc(100vh-100%)] z-40 animate-slideIn">
           <button
-            onClick={() => handleNavClick('/')}
-            className={`text-lg font-medium text-left rtl:text-right ${isActive('/') ? 'text-morocco-red font-bold' : 'text-morocco-dark'}`}
+            onClick={() => handleNavClick("/")}
+            className={`text-lg font-medium text-left rtl:text-right ${isActive("/") ? "text-morocco-red font-bold" : "text-morocco-dark"}`}
           >
             {t.home}
           </button>
           <button
-            onClick={() => handleNavClick('/shop')}
-            className={`text-lg font-medium text-left rtl:text-right ${isActive('/shop') ? 'text-morocco-red font-bold' : 'text-morocco-dark'}`}
+            onClick={() => handleNavClick("/shop")}
+            className={`text-lg font-medium text-left rtl:text-right ${isActive("/shop") ? "text-morocco-red font-bold" : "text-morocco-dark"}`}
           >
             {t.shop}
           </button>
-          <button
-            className="text-lg font-medium text-morocco-dark text-left rtl:text-right opacity-70 cursor-not-allowed"
-          >
+          <button className="text-lg font-medium text-morocco-dark text-left rtl:text-right opacity-70 cursor-not-allowed">
             {t.faq}
           </button>
-          <button
-            className="text-lg font-medium text-morocco-dark text-left rtl:text-right opacity-70 cursor-not-allowed"
-          >
+          <button className="text-lg font-medium text-morocco-dark text-left rtl:text-right opacity-70 cursor-not-allowed">
             {t.contact}
           </button>
 
           <div className="flex flex-col gap-4 pt-4 border-t border-morocco-gold/20">
-            <span className="text-xs font-bold uppercase text-morocco-dark/50">Select Language</span>
+            <span className="text-xs font-bold uppercase text-morocco-dark/50">
+              Select Language
+            </span>
             <div className="flex gap-2">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => setLanguage(lang.code)}
-                  className={`flex-1 px-3 py-2 rounded border border-morocco-gold/30 text-sm font-bold flex items-center justify-center gap-2 ${language === lang.code ? 'bg-morocco-green text-white' : 'text-morocco-dark bg-white'}`}
+                  className={`flex-1 px-3 py-2 rounded border border-morocco-gold/30 text-sm font-bold flex items-center justify-center gap-2 ${language === lang.code ? "bg-morocco-green text-white" : "text-morocco-dark bg-white"}`}
                 >
                   <span>{lang.flag}</span>
                 </button>

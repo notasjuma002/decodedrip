@@ -17,7 +17,7 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Atlas Lions 2025 - Official Store",
+  title: "decode 2025 - Official Store",
   description: "Official store for the Morocco National Team - AFCON 2025",
 };
 
@@ -32,12 +32,9 @@ export default function RootLayout({
         className={`${poppins.variable} ${cairo.variable} antialiased bg-morocco-neutral font-sans text-morocco-dark transition-all duration-300`}
       >
         <Providers>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
+          <ClientLayout>{children}</ClientLayout>
         </Providers>
       </body>
     </html>
   );
 }
-
