@@ -98,6 +98,14 @@ const ProductDetails: React.FC = () => {
         <Link href="/shop" className="hover:text-morocco-red">
           {navT.shop}
         </Link>
+        {product.country && (
+          <>
+            <span className="mx-2">›</span>
+            <Link href={`/shop/${product.country}`} className="hover:text-morocco-red">
+              {product.country}
+            </Link>
+          </>
+        )}
         <span className="mx-2">›</span>
         <span className="text-morocco-dark font-medium">
           {product.name[language]}

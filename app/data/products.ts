@@ -22,6 +22,7 @@ export const products: Product[] = [
       ar: "هودي قطني ثقيل ممتاز يتميز بالنمط الهندسي الرسمي لكأس أفريقيا المغرب 2025 مطرز على الصدر. مصمم للدفء والأناقة في الملعب.",
     },
     isFeatured: true,
+    country: "Morocco",
   },
   {
     id: "2",
@@ -44,6 +45,7 @@ export const products: Product[] = [
       ar: "تي شيرت قطن عضوي ناعم مع علامة تجارية دقيقة. قماش يسمح بمرور الهواء مثالي لأيام المباريات تحت الشمس.",
     },
     isFeatured: true,
+    country: "Morocco",
   },
   {
     id: "3",
@@ -66,6 +68,7 @@ export const products: Product[] = [
       ar: "سترة صوفية فاخرة من مزيج الصوف باللون الأخضر الزمردي العميق. تتميز بأنماط نسج مستوحاة من التراث.",
     },
     isFeatured: true,
+    country: "Morocco",
   },
   {
     id: "4",
@@ -87,6 +90,7 @@ export const products: Product[] = [
       fr: "Écharpe de supporter authentique aux couleurs classiques rouge et vert avec des accents dorés.",
       ar: "وشاح مشجع أصلي يتميز باللونين الأحمر والأخضر الكلاسيكيين مع لمسات ذهبية.",
     },
+    country: "Morocco",
   },
   {
     id: "5",
@@ -108,6 +112,7 @@ export const products: Product[] = [
       fr: "Coupe-vent léger et résistant à l'eau pour les soirées côtières. Détails de logo minimalistes.",
       ar: "سترة واقية خفيفة الوزن ومقاومة للماء للأمسيات الساحلية. تفاصيل شعار مبسطة.",
     },
+    country: "Morocco",
   },
   {
     id: "6",
@@ -129,5 +134,131 @@ export const products: Product[] = [
       fr: "Polo coupe classique avec bordure dorée sur le col et les manches. Élégant et sportif.",
       ar: "قميص بولو كلاسيكي مع حواف ذهبية على الياقة والأكمام. أنيق ورياضي.",
     },
+    country: "Morocco",
+  },
+  // Egypt
+  {
+    id: "7",
+    name: {
+      en: "Pharaohs Hoodie",
+      fr: "Sweat à capuche Pharaons",
+      ar: "هودي الفراعنة",
+    },
+    price: 850,
+    category: "Hoodie",
+    image: "https://picsum.photos/seed/egypt1/600/800",
+    images: [
+      "https://picsum.photos/seed/egypt1/600/800",
+      "https://picsum.photos/seed/egypt2/600/800",
+    ],
+    description: {
+      en: "Official Egypt National Team hoodie. Red with black accents.",
+      fr: "Sweat à capuche officiel de l'équipe nationale d'Égypte. Rouge avec des accents noirs.",
+      ar: "هودي المنتخب المصري الرسمي. أحمر مع لمسات سوداء.",
+    },
+    country: "Egypt",
+  },
+  {
+    id: "8",
+    name: {
+      en: "Cairo Tee",
+      fr: "T-shirt Le Caire",
+      ar: "تي شيرت القاهرة",
+    },
+    price: 350,
+    category: "T-Shirt",
+    image: "https://picsum.photos/seed/egypt3/600/800",
+    images: [
+      "https://picsum.photos/seed/egypt3/600/800",
+    ],
+    description: {
+      en: "Casual tee featuring Cairo skyline and football motifs.",
+      fr: "T-shirt décontracté avec la ligne d'horizon du Caire et des motifs de football.",
+      ar: "تي شيرت كاجوال يتميز بأفق القاهرة وزخارف كرة القدم.",
+    },
+    country: "Egypt",
+  },
+  // Senegal
+  {
+    id: "9",
+    name: {
+      en: "Lions of Teranga Hoodie",
+      fr: "Sweat Lions de la Teranga",
+      ar: "هودي أسود التيرانجا",
+    },
+    price: 850,
+    category: "Hoodie",
+    image: "https://picsum.photos/seed/senegal1/600/800",
+    images: [
+      "https://picsum.photos/seed/senegal1/600/800",
+    ],
+    description: {
+      en: "Green hoodie with the proud Lion symbol of Senegal.",
+      fr: "Sweat à capuche vert avec le fier symbole du Lion du Sénégal.",
+      ar: "هودي أخضر مع رمز الأسد الفخور للسنغال.",
+    },
+    country: "Senegal",
+  },
+  {
+    id: "10",
+    name: {
+      en: "Dakar Tee",
+      fr: "T-shirt Dakar",
+      ar: "تي شيرت داكار",
+    },
+    price: 350,
+    category: "T-Shirt",
+    image: "https://picsum.photos/seed/senegal2/600/800",
+    images: [
+      "https://picsum.photos/seed/senegal2/600/800",
+    ],
+    description: {
+      en: "Vibrant tee celebrating the spirit of Dakar.",
+      fr: "T-shirt vibrant célébrant l'esprit de Dakar.",
+      ar: "تي شيرت نابض بالحياة يحتفل بروح داكار.",
+    },
+    country: "Senegal",
+  },
+  // Nigeria
+  {
+    id: "11",
+    name: {
+      en: "Super Eagles Hoodie",
+      fr: "Sweat Super Eagles",
+      ar: "هودي النسور الخارقة",
+    },
+    price: 850,
+    category: "Hoodie",
+    image: "https://picsum.photos/seed/nigeria1/600/800",
+    images: [
+      "https://picsum.photos/seed/nigeria1/600/800",
+    ],
+    description: {
+      en: "Iconic Naija style hoodie with bold patterns.",
+      fr: "Sweat à capuche style Naija emblématique avec des motifs audacieux.",
+      ar: "هودي نمط نايجا الأيقوني مع أنماط جريئة.",
+    },
+    country: "Nigeria",
+  },
+  // Ivory Coast
+  {
+    id: "12",
+    name: {
+      en: "Elephants Tee",
+      fr: "T-shirt Éléphants",
+      ar: "تي شيرت الفيلة",
+    },
+    price: 350,
+    category: "T-Shirt",
+    image: "https://picsum.photos/seed/ivory1/600/800",
+    images: [
+      "https://picsum.photos/seed/ivory1/600/800",
+    ],
+    description: {
+      en: "Orange tee representing the Ivory Coast national team.",
+      fr: "T-shirt orange représentant l'équipe nationale de Côte d'Ivoire.",
+      ar: "تي شيرت برتقالي يمثل المنتخب الوطني لساحل العاج.",
+    },
+    country: "Ivory Coast",
   },
 ];

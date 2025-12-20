@@ -13,6 +13,7 @@ export interface Product {
   images: string[];
   description: LocalizedString;
   isFeatured?: boolean;
+  country?: string;
 }
 
 export interface CartItem extends Product {
