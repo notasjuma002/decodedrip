@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { products } from "@/app/data/products";
+import { countries } from "@/app/data/countries";
 import { useStore } from "@/app/store/useStore";
 import { locales } from "@/app/locales";
 
@@ -44,18 +45,11 @@ const ProductDetails: React.FC = () => {
     );
   }
 
-  // Different images for each color variant
-  const blackImages =
+  // Always use the main images regardless of color selection
+  const currentImages =
     product.images && product.images.length > 0
       ? product.images
       : [product.image];
-  const whiteImages =
-    product.images && product.images.length > 1
-      ? [product.images[1], product.images[2] || product.images[0]]
-      : [product.image];
-
-  // Get current images based on selected color
-  const currentImages = selectedColor === "Black" ? blackImages : whiteImages;
 
   // 2 Color variants only
   const colors = [
@@ -65,7 +59,7 @@ const ProductDetails: React.FC = () => {
 
   const handleColorChange = (color: "Black" | "White") => {
     setSelectedColor(color);
-    setCurrentImageIndex(0); // Reset to first image when switching colors
+    // Images do not change based on color selection
   };
 
   const handleAddToCart = () => {
@@ -172,6 +166,41 @@ const ProductDetails: React.FC = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-morocco-dark leading-tight mb-6">
               {product.name[language]}
             </h1>
+
+            {/* Country Switcher - Compact Grid */}
+            <div className="mb-8">
+              <div className="flex flex-wrap gap-2">
+                {countries.map((c) => {
+                  // Find the hoodie product for this country
+                  const countryProduct = products.find(
+                    (p) => p.country === c.name && p.category === "Hoodie"
+                  );
+
+                  // If no hoodie exists for this country, skip or disable
+                  if (!countryProduct) return null;
+
+                  const isActive = product.country === c.name;
+
+                  return (
+                    <Link
+                      key={c.code}
+                      href={`/product/${countryProduct.id}`}
+                      className={`flex-shrink-0 relative w-9 h-9 rounded-full overflow-hidden border-2 transition-all duration-200 ${isActive
+                        ? "border-morocco-red scale-110 ring-1 ring-morocco-red/30"
+                        : "border-morocco-neutral hover:border-morocco-gold hover:scale-105"
+                        }`}
+                      title={c.name}
+                    >
+                      <img
+                        src={c.image}
+                        alt={c.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Fixed Price Only */}
             <div className="mb-8 pb-6 border-b border-morocco-neutral">

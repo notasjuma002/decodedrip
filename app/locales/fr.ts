@@ -76,7 +76,7 @@ export const fr: TranslationStructure = {
     notes: "Notes (Optionnel)",
     submit: "Confirmer la commande",
     success_alert:
-      "Commande soumise avec succès ! Vérifiez la console pour les détails.",
+      "Commande soumise avec succès !",
     empty_cart: "Votre panier est vide.",
   },
   faq: {

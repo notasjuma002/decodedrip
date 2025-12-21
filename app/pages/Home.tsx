@@ -148,20 +148,67 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-morocco-dark uppercase tracking-widest">
-              {t.common.featured}
-            </h2>
-            <div className="w-12 h-0.5 bg-morocco-gold mx-auto mt-4"></div>
+      {/* DRIP Pack Section */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-morocco-dark py-20">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/2ed/background.png"
+            alt="Graffiti Background"
+            className="w-full h-full object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Headlines */}
+          <h2 className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter mb-2 drop-shadow-xl font-sans">
+            UNITE. VIBE. DECODE.
+          </h2>
+          <p className="text-lg md:text-2xl text-white font-medium mb-6 drop-shadow-md">
+            The new DRIP Pack - African pride meets Moroccan streetwear elegance
+          </p>
+
+          <div className="max-w-3xl mx-auto mb-12">
+            <p className="text-base md:text-lg text-white/90 mb-2">
+              T-shirts, Hoodie plus accessolers crafted for CAN 2025, Designed for the culture
+            </p>
+            <p className="text-morocco-gold font-bold uppercase tracking-widest text-sm">
+              Livraison gratuite partout au maroc
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          {/* Product Images Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-16 items-end">
+            <div className="transform hover:scale-105 transition-transform duration-300">
+              <img src="/2ed/IMG_2650.PNG" alt="Product 1" className="w-full h-auto drop-shadow-2xl" />
+            </div>
+            <div className="transform hover:scale-105 transition-transform duration-300 md:-mb-8">
+              <img src="/2ed/IMG_2651.PNG" alt="Product 2" className="w-full h-auto drop-shadow-2xl" />
+            </div>
+            <div className="transform hover:scale-105 transition-transform duration-300 md:-mb-8">
+              <img src="/2ed/IMG_2648.PNG" alt="Product 3" className="w-full h-auto drop-shadow-2xl" />
+            </div>
+            <div className="transform hover:scale-105 transition-transform duration-300">
+              <img src="/2ed/IMG_2649.PNG" alt="Product 4" className="w-full h-auto drop-shadow-2xl" />
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/shop"
+              className="bg-transparent border-2 border-morocco-gold text-morocco-gold hover:bg-morocco-gold hover:text-black px-8 py-3 uppercase font-bold tracking-widest transition-all duration-300 text-sm md:text-base"
+            >
+              DÉCOUVRIR LA COLLECTION
+            </Link>
+            <Link
+              href="/about"
+              className="text-white/80 hover:text-white border-b border-transparent hover:border-white transition-all text-sm uppercase tracking-wider"
+            >
+              Join the DRIP Movement
+            </Link>
           </div>
         </div>
       </section>

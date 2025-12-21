@@ -78,8 +78,12 @@ const Checkout: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     const orderData = {
       items: cart,
       total: getCartTotal(),
@@ -87,10 +91,35 @@ const Checkout: React.FC = () => {
       orderDate: new Date().toISOString(),
     };
 
-    console.log('Order Submitted:', orderData);
-    alert(t.success_alert);
-    clearCart();
-    router.push('/');
+    console.log('📦 Submitting order...', orderData);
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+      console.log('📬 API Response:', result);
+
+      if (result.success) {
+        console.log('✅ Order submitted successfully!');
+        alert(t.success_alert);
+        clearCart();
+        router.push('/');
+      } else {
+        console.error('❌ Order failed:', result.error);
+        alert(`Failed to submit order: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('❌ Checkout error:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (cart.length === 0) {
@@ -238,9 +267,10 @@ const Checkout: React.FC = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-morocco-dark text-white py-4 font-semibold uppercase tracking-wide hover:bg-morocco-red transition-colors mt-6 cursor-pointer"
+                disabled={isSubmitting}
+                className={`w-full bg-morocco-dark text-white py-4 font-semibold uppercase tracking-wide hover:bg-morocco-red transition-colors mt-6 cursor-pointer ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                {t.submit}
+                {isSubmitting ? 'Processing...' : t.submit}
               </button>
             </form>
           </div>
