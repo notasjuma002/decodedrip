@@ -20,7 +20,8 @@ const ProductDetails: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<"Black" | "White">(
     "Black",
   );
-  const [selectedSize] = useState<string>("XL"); // Fixed to XL
+  const [selectedSize, setSelectedSize] = useState<string>("M");
+  const sizes = ["S", "M", "L", "XL"];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
@@ -269,16 +270,22 @@ const ProductDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* Size Display - XL Only */}
+            {/* Size Selection - S, M, L, XL */}
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
                 <span className="font-bold text-morocco-dark">Size:</span>
-                <span className="font-bold text-morocco-dark">XL</span>
+                <span className="text-morocco-dark/70">{selectedSize}</span>
               </div>
-              <div className="bg-morocco-neutral/30 border border-morocco-neutral px-6 py-4 inline-block">
-                <span className="text-sm font-bold text-morocco-dark">
-                  Available Size: XL
-                </span>
+              <div className="flex gap-3">
+                {sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`w-14 h-14 border-2 flex items-center justify-center font-bold text-lg transition-all cursor-pointer ${selectedSize === size ? "border-morocco-dark bg-morocco-dark text-white" : "border-morocco-neutral hover:border-morocco-dark/50 text-morocco-dark"}`}
+                  >
+                    {size}
+                  </button>
+                ))}
               </div>
             </div>
 
