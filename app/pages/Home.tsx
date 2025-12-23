@@ -198,13 +198,13 @@ const Home: React.FC = () => {
           <p className="text-morocco-dark/60 mb-8">
             {t.common.newsletter_desc}
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
               placeholder="Email Address"
-              className="flex-1 bg-morocco-neutral border-none p-4 text-sm focus:ring-1 focus:ring-morocco-gold outline-none"
+              className="flex-1 bg-morocco-neutral border-none p-4 text-sm focus:ring-1 focus:ring-morocco-gold outline-none rounded-none"
             />
-            <button className="bg-morocco-dark text-white px-6 py-4 text-sm font-bold uppercase tracking-widest hover:bg-morocco-red transition-colors">
+            <button className="bg-morocco-dark text-white px-6 py-4 text-sm font-bold uppercase tracking-widest hover:bg-morocco-red transition-colors whitespace-nowrap">
               {t.common.subscribe}
             </button>
           </div>
