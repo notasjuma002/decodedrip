@@ -11,13 +11,24 @@ const Shop: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero / Header */}
-      <div className="bg-morocco-dark text-white py-16 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-widest mb-4 font-serif">
-          Select Your Team
-        </h1>
-        <p className="text-lg opacity-80 max-w-2xl mx-auto px-4">
-          CAF Africa Cup of Nations 2025
-        </p>
+      <div className="relative bg-morocco-dark text-white py-16 text-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="/2ed/flags-section-choix-natoins.jpg"
+            alt="CAF Nations"
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div className="relative z-10">
+          <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-widest mb-4 font-serif">
+            Select Your Team
+          </h1>
+          <p className="text-lg opacity-80 max-w-2xl mx-auto px-4">
+            CAF Africa Cup of Nations 2025
+          </p>
+        </div>
       </div>
 
       {/* Countries Grid */}

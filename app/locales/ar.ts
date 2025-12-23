@@ -9,10 +9,10 @@ export const ar: TranslationStructure = {
     launch: "إطلاق الكان 2025"
   },
   hero: {
-    headline: "اكتشف اشعر احتفل",
-    subtext: "توتال إنيرجيز كأس أفريقيا 2025، إنها أكثر من مجرد منافسة!",
-    cta_primary: "تسوق المجموعة",
-    cta_secondary: "تسوّق المجموعة"
+    headline: "اكتشف. اشعر. احتفل.",
+    subtext: "كأس أمم إفريقيا 2025: أكثر من بطولة، احتفال بالوحدة والشغف والفخر الإفريقي بتوقيع UNITE. VIBE. DECODE.",
+    cta_primary: "اشترِ قبل النفاد",
+    cta_secondary: "اشترِ قبل النفاد"
   },
   common: {
     view_item: "عرض المنتج",
@@ -28,18 +28,32 @@ export const ar: TranslationStructure = {
     price: "السعر",
     featured: "منتجات مميزة",
     rights: "© 2025 أسود الأطلس الرسمي. جميع الحقوق محفوظة.",
-    authentic: "ساند بلادك بشغف",
-    authentic_desc: "عيش فخر أسود الأطلس. مجموعتنا لعام 2025 تجسد روح اللعبة وقلب المغرب، مصممة للمدرجات والشوارع.",
-    licensed: "منتج مرخص رسميًا",
+    authentic: "ساند منتخبك بأسلوبك",
+    authentic_desc: "عيشوا إحساس كرة القدم الإفريقية مع DRIP 2025: فخر مغربي، روح اللعب وستريت وير عصري للمدرجات والشوارع.",
+    licensed: "مجموعة CAN 2025 الخاصة",
     newsletter_title: "انضم إلى الفريق",
-    newsletter_desc: "اشترك للحصول على إصدارات حصرية وأخبار كأس أفريقيا 2025.",
+    newsletter_desc: "اشترك للحصول على إصدارات حصرية.",
     subscribe: "اشتراك",
     secure_payment: "نضمن لك دفع آمن.",
     returns_policy: "سياسة الإرجاع",
     returns_desc: "لديك 60 يومًا لإرجاع العنصر (العناصر) باستخدام أي من الطرق التالية:",
     social_share: "مشاركة:",
     delivery_terms: "شروط التسليم",
-    size_guide: "دليل المقاسات"
+    size_guide: "دليل المقاسات",
+    // Product Page
+    limited_edition: "إصدار محدود — كمية محدودة",
+    free_delivery: "توصيل مجاني",
+    exchange_policy: "إمكانية التبديل خلال 7 أيام",
+    cash_on_delivery: "الدفع عند الاستلام",
+    high_quality_fabric: "قماش عالي الجودة",
+    product_description_title: "الوصف",
+    product_description: "ألوان الشغف والأمل. قطعة كتجسّد الروح الإفريقية والفخر المغربي. تصميم موجّه للي كيشوفو الكورة قناعة قبل ما تكون غير لعبة، ولي كيلبسو دعمهم بكل اعتزاز. فالتيران ولا فالزنقة، أسلوب وهوية إفريقية قبل كل شيء.",
+    product_details_title: "تفاصيل المنتج",
+    product_detail_1: "قماش بريميوم — خفيف، مريح ودافئ",
+    product_detail_2: "طباعة قوية وثابتة تدوم مع الوقت",
+    product_detail_3: "ألوان إفريقية جريئة بلمسات رمزية",
+    product_detail_4: "مصمّم في المغرب ويُرتدى بكل فخر",
+    product_detail_5: "قَصّة موحّدة (Unisex) — لكل من يؤمن بالرسالة"
   },
   shop: {
     title: "تسوق المجموعة",

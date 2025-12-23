@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa";
 import { useStore } from "@/app/store/useStore";
@@ -11,12 +11,6 @@ const Home: React.FC = () => {
   const t = locales[language];
   const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 3);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
 
   const faqs = [
     { question: t.faq.q1, answer: t.faq.a1 },
@@ -25,30 +19,6 @@ const Home: React.FC = () => {
     { question: t.faq.q4, answer: t.faq.a4 },
   ];
 
-  useEffect(() => {
-    // Target: Dec 21, 2025
-    const targetDate = new Date("2025-12-21T20:00:00").getTime();
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-      } else {
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-          ),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000),
-        });
-      }
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -56,7 +26,7 @@ const Home: React.FC = () => {
         {/* Full Screen Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/hero.webp"
+            src="/2ed/hero-section.jpg"
             alt="Morocco Stadium"
             className="w-full h-full object-cover object-center"
           />
@@ -69,55 +39,6 @@ const Home: React.FC = () => {
         {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-center">
           <div className="max-w-5xl mx-auto flex flex-col items-center">
-            {/* HERO COUNTDOWN - Compact */}
-            <div className="mb-6 flex flex-col items-center animate-fadeIn">
-              <span className="text-morocco-gold uppercase tracking-[0.3em] text-xs font-bold mb-3">
-                {t.nav.launch}
-              </span>
-              <div className="flex items-center gap-3 md:gap-6 text-white font-serif">
-                <div className="flex flex-col items-center">
-                  <span className="text-2xl md:text-4xl font-bold">
-                    {timeLeft.days}
-                  </span>
-                  <span className="text-[10px] uppercase opacity-60 tracking-wider">
-                    Days
-                  </span>
-                </div>
-                <span className="text-xl md:text-2xl text-morocco-gold/60 -mt-3">
-                  :
-                </span>
-                <div className="flex flex-col items-center">
-                  <span className="text-2xl md:text-4xl font-bold">
-                    {timeLeft.hours}
-                  </span>
-                  <span className="text-[10px] uppercase opacity-60 tracking-wider">
-                    Hrs
-                  </span>
-                </div>
-                <span className="text-xl md:text-2xl text-morocco-gold/60 -mt-3">
-                  :
-                </span>
-                <div className="flex flex-col items-center">
-                  <span className="text-2xl md:text-4xl font-bold">
-                    {timeLeft.minutes}
-                  </span>
-                  <span className="text-[10px] uppercase opacity-60 tracking-wider">
-                    Min
-                  </span>
-                </div>
-                <span className="text-xl md:text-2xl text-morocco-gold/60 -mt-3">
-                  :
-                </span>
-                <div className="flex flex-col items-center">
-                  <span className="text-2xl md:text-4xl font-bold">
-                    {timeLeft.seconds}
-                  </span>
-                  <span className="text-[10px] uppercase opacity-60 tracking-wider">
-                    Sec
-                  </span>
-                </div>
-              </div>
-            </div>
 
             {/* Headline - Scaled Down to prevent crowding */}
             <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight rtl:leading-relaxed tracking-tight rtl:tracking-normal font-sans rtl:font-serif uppercase mb-6 drop-shadow-2xl">
@@ -203,12 +124,6 @@ const Home: React.FC = () => {
             >
               DÉCOUVRIR LA COLLECTION
             </Link>
-            <Link
-              href="/about"
-              className="text-white/80 hover:text-white border-b border-transparent hover:border-white transition-all text-sm uppercase tracking-wider"
-            >
-              Join the DRIP Movement
-            </Link>
           </div>
         </div>
       </section>
@@ -218,8 +133,8 @@ const Home: React.FC = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=2070&auto=format&fit=crop"
-            alt="Fans"
+            src="/2ed/wolcoming-section.jpg"
+            alt="Welcome - Support Your Country"
             className="w-full h-full object-cover"
           />
           {/* Red Multiply Overlay */}

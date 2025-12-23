@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { TbTruck, TbRefresh, TbCash, TbShieldCheck } from "react-icons/tb";
 import { products } from "@/app/data/products";
 import { countries } from "@/app/data/countries";
 import { useStore } from "@/app/store/useStore";
@@ -215,14 +216,63 @@ const ProductDetails: React.FC = () => {
               </div>
             </div>
 
+            {/* Feature Badges Row */}
+            <div className="flex justify-between items-start gap-4 mb-8">
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbTruck size={24} className="mb-2 text-morocco-dark" />
+                <span className="font-bold text-morocco-dark text-xs">{t.free_delivery}</span>
+              </div>
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbRefresh size={24} className="mb-2 text-morocco-dark" />
+                <span className="font-bold text-morocco-dark text-xs">{t.exchange_policy}</span>
+              </div>
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbCash size={24} className="mb-2 text-morocco-dark" />
+                <span className="font-bold text-morocco-dark text-xs">{t.cash_on_delivery}</span>
+              </div>
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbShieldCheck size={24} className="mb-2 text-morocco-dark" />
+                <span className="font-bold text-morocco-dark text-xs">{t.high_quality_fabric}</span>
+              </div>
+            </div>
+
             {/* Description */}
-            <div className="mb-8">
+            <div className="mb-8 border-t border-morocco-neutral pt-6">
               <h3 className="font-bold text-morocco-dark mb-3 text-sm uppercase tracking-wider">
-                Description
+                {t.product_description_title}
               </h3>
               <p className="text-morocco-dark/70 leading-relaxed">
-                {product.description[language]}
+                {t.product_description}
               </p>
+            </div>
+
+            {/* Product Details */}
+            <div className="mb-8">
+              <h3 className="font-bold text-morocco-dark mb-3 text-sm uppercase tracking-wider">
+                {t.product_details_title}
+              </h3>
+              <ul className="space-y-2 text-morocco-dark/70">
+                <li className="flex items-start gap-2">
+                  <span className="text-morocco-gold">•</span>
+                  <span>{t.product_detail_1}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-morocco-gold">•</span>
+                  <span>{t.product_detail_2}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-morocco-gold">•</span>
+                  <span>{t.product_detail_3}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-morocco-gold">•</span>
+                  <span>{t.product_detail_4}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-morocco-gold">•</span>
+                  <span>{t.product_detail_5}</span>
+                </li>
+              </ul>
             </div>
 
             {/* Color Selection - Black & White Only */}

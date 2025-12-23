@@ -77,6 +77,20 @@ export interface TranslationStructure {
     social_share: string;
     delivery_terms: string;
     size_guide: string;
+    // Product Page
+    limited_edition: string;
+    free_delivery: string;
+    exchange_policy: string;
+    cash_on_delivery: string;
+    high_quality_fabric: string;
+    product_description_title: string;
+    product_description: string;
+    product_details_title: string;
+    product_detail_1: string;
+    product_detail_2: string;
+    product_detail_3: string;
+    product_detail_4: string;
+    product_detail_5: string;
   };
   shop: {
     title: string;

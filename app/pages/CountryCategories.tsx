@@ -12,11 +12,14 @@ const CountryCategories: React.FC<CountryCategoriesProps> = ({ countryName }) =>
     const { language } = useStore();
     const t = locales[language].shop;
 
+    // Decode URL-encoded country name for proper matching
+    const decodedCountryName = decodeURIComponent(countryName);
+
     // Find a representative image for each category for this country, or fallback
     const getCategoryImage = (category: string) => {
         const product = products.find(
             (p) =>
-                p.country === countryName &&
+                p.country === decodedCountryName &&
                 p.category.toLowerCase() === category.toLowerCase()
         );
         if (product) return product.image;
@@ -31,7 +34,7 @@ const CountryCategories: React.FC<CountryCategoriesProps> = ({ countryName }) =>
     const getProductId = (category: string) => {
         const product = products.find(
             (p) =>
-                p.country === countryName &&
+                p.country === decodedCountryName &&
                 p.category.toLowerCase() === category.toLowerCase()
         );
         return product ? product.id : null;
@@ -59,10 +62,18 @@ const CountryCategories: React.FC<CountryCategoriesProps> = ({ countryName }) =>
         <div className="min-h-screen bg-white">
             {/* Hero / Header */}
             <div className="bg-morocco-dark text-white py-16 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/20 z-0"></div>
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                    <img
+                        src="/2ed/select-category.jpg"
+                        alt="Select Category"
+                        className="w-full h-full object-cover opacity-60"
+                    />
+                    <div className="absolute inset-0 bg-black/40"></div>
+                </div>
                 <div className="relative z-10">
                     <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-widest mb-4 font-serif">
-                        {decodeURIComponent(countryName)}
+                        {decodedCountryName}
                     </h1>
                     <p className="text-lg opacity-80 max-w-2xl mx-auto px-4">
                         Select Category

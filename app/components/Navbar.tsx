@@ -10,12 +10,6 @@ import { Language } from "@/app/types";
 
 const Navbar: React.FC = () => {
   const { language, setLanguage, cart, toggleCart } = useStore();
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,26 +38,6 @@ const Navbar: React.FC = () => {
     languages.find((l) => l.code === language) || languages[0];
 
   useEffect(() => {
-    // Target: Dec 21, 2025 (Projected start of AFCON 2025)
-    const targetDate = new Date("2025-12-21T20:00:00").getTime();
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-      } else {
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-          ),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000),
-        });
-      }
-    }, 1000);
 
     // Click outside to close lang menu
     const handleClickOutside = (event: MouseEvent) => {
@@ -87,7 +61,6 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      clearInterval(timer);
       document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
     };
@@ -119,9 +92,6 @@ const Navbar: React.FC = () => {
     return "bg-morocco-neutral/95 backdrop-blur-sm shadow-sm";
   };
 
-  // Logic to show/hide Top Bar
-  // Hide on Home initially, Show on Scroll OR Show on other pages
-  const showTopBar = !isHome || isScrolled;
 
   const shouldUseWhiteText =
     isHome && !isScrolled ? true : isHome && isScrolled ? true : false;
@@ -149,20 +119,6 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="fixed w-full z-50 flex flex-col items-center">
-      {/* Top Bar Countdown - Centered - Conditional Display with Animation */}
-      <div
-        className={`w-full bg-black/80 backdrop-blur-md text-white text-center text-xs font-mono tracking-widest flex justify-center items-center overflow-hidden transition-all duration-500 ease-in-out ${
-          showTopBar ? "max-h-12 py-2.5 opacity-100" : "max-h-0 py-0 opacity-0"
-        }`}
-      >
-        <div className="flex items-center">
-          <span className="opacity-80 mr-2 hidden sm:inline">{t.launch}</span>
-          <span className="font-bold text-morocco-gold bg-white/10 px-2 py-0.5 rounded">
-            {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m{" "}
-            {timeLeft.seconds}s
-          </span>
-        </div>
-      </div>
 
       {/* Main Navbar */}
       <nav
@@ -170,7 +126,7 @@ const Navbar: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className={`flex justify-between items-center transition-all duration-500 ${showTopBar ? "h-16" : "h-24"}`}
+            className="flex justify-between items-center h-16 transition-all duration-500"
           >
             {/* Mobile Menu Button */}
             <button
@@ -190,7 +146,7 @@ const Navbar: React.FC = () => {
               <span
                 className={`text-2xl font-bold tracking-widest font-sans uppercase transition-colors ${isTextWhite ? "text-white" : "text-morocco-red"}`}
               >
-                Decode
+                UV.Decode
               </span>
               <span
                 className={`text-xs tracking-[0.3em] uppercase transition-colors ${isTextWhite ? "text-white/80 group-hover:text-morocco-gold" : "text-morocco-green group-hover:text-morocco-gold"}`}
@@ -212,12 +168,6 @@ const Navbar: React.FC = () => {
                 className={getLinkClass("/shop")}
               >
                 {t.shop}
-              </button>
-              <button className={buttonClass} title="Coming Soon">
-                {t.faq}
-              </button>
-              <button className={buttonClass} title="Coming Soon">
-                {t.contact}
               </button>
             </div>
 
