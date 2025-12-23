@@ -148,11 +148,6 @@ const Navbar: React.FC = () => {
               >
                 UV.Decode
               </span>
-              <span
-                className={`text-xs tracking-[0.3em] uppercase transition-colors ${isTextWhite ? "text-white/80 group-hover:text-morocco-gold" : "text-morocco-green group-hover:text-morocco-gold"}`}
-              >
-                Caf Drip Collection
-              </span>
             </Link>
 
             {/* Desktop Links - Centered */}
