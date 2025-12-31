@@ -204,11 +204,13 @@ const ProductDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* Fixed Price Only */}
+            {/* Price Based on Color Selection */}
             <div className="mb-8 pb-6 border-b border-morocco-neutral">
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold text-morocco-dark">
-                  {product.price}
+                  {selectedColor === "Black"
+                    ? (product.priceBlack ?? product.price)
+                    : (product.priceWhite ?? product.price)}
                 </span>
                 <span className="text-xl text-morocco-dark/60 font-medium">
                   MAD
@@ -229,10 +231,6 @@ const ProductDetails: React.FC = () => {
               <div className="flex flex-col items-center text-center flex-1">
                 <TbCash size={24} className="mb-2 text-morocco-dark" />
                 <span className="font-bold text-morocco-dark text-xs">{t.cash_on_delivery}</span>
-              </div>
-              <div className="flex flex-col items-center text-center flex-1">
-                <TbShieldCheck size={24} className="mb-2 text-morocco-dark" />
-                <span className="font-bold text-morocco-dark text-xs">{t.high_quality_fabric}</span>
               </div>
             </div>
 

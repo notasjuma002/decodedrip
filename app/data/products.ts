@@ -6,6 +6,8 @@ export const products: Product[] = [
     id: "alg-hoodie",
     name: { en: "Algeria 2025 Hoodie", fr: "Sweat Algérie 2025", ar: "هودي الجزائر 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/6RP3YMVy/ALG-FRONT.jpg",
     images: [
@@ -26,6 +28,8 @@ export const products: Product[] = [
     id: "ang-hoodie",
     name: { en: "Angola 2025 Hoodie", fr: "Sweat Angola 2025", ar: "هودي أنغولا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/KzhJdgJs/ANG-front.jpg",
     images: [
@@ -46,6 +50,8 @@ export const products: Product[] = [
     id: "ben-hoodie",
     name: { en: "Benin 2025 Hoodie", fr: "Sweat Bénin 2025", ar: "هودي بنين 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/gFD5JF6R/BN-front.jpg",
     images: [
@@ -66,6 +72,8 @@ export const products: Product[] = [
     id: "bfa-hoodie",
     name: { en: "Burkina Faso 2025 Hoodie", fr: "Sweat Burkina Faso 2025", ar: "هودي بوركينا فاسو 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/DgVYSV4s/bourkina-front.jpg",
     images: [
@@ -86,6 +94,8 @@ export const products: Product[] = [
     id: "bwa-hoodie",
     name: { en: "Botswana 2025 Hoodie", fr: "Sweat Botswana 2025", ar: "هودي بوتسوانا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/jv8G8r1k/botswana-front.jpg",
     images: [
@@ -106,6 +116,8 @@ export const products: Product[] = [
     id: "cmr-hoodie",
     name: { en: "Cameroon 2025 Hoodie", fr: "Sweat Cameroun 2025", ar: "هودي الكاميرون 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/84YxRCc2/cameron-front.jpg",
     images: [
@@ -126,6 +138,8 @@ export const products: Product[] = [
     id: "civ-hoodie",
     name: { en: "Ivory Coast 2025 Hoodie", fr: "Sweat Côte d'Ivoire 2025", ar: "هودي ساحل العاج 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/whfzTk0N/codvwar-front.jpg",
     images: [
@@ -146,6 +160,8 @@ export const products: Product[] = [
     id: "com-hoodie",
     name: { en: "Comoros 2025 Hoodie", fr: "Sweat Comores 2025", ar: "هودي جزر القمر 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/s9y9kCmr/comoros-front.jpg",
     images: [
@@ -166,6 +182,8 @@ export const products: Product[] = [
     id: "cod-hoodie",
     name: { en: "DR Congo 2025 Hoodie", fr: "Sweat RDC 2025", ar: "هودي جمهورية الكونغو الديمقراطية 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/n9KFSzR/congo-front.jpg",
     images: [
@@ -186,6 +204,8 @@ export const products: Product[] = [
     id: "egy-hoodie",
     name: { en: "Egypt 2025 Hoodie", fr: "Sweat Égypte 2025", ar: "هودي مصر 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/rG1LTLvm/egypt-front.jpg",
     images: [
@@ -206,6 +226,8 @@ export const products: Product[] = [
     id: "gab-hoodie",
     name: { en: "Gabon 2025 Hoodie", fr: "Sweat Gabon 2025", ar: "هودي الغابون 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/N2SnvVcb/gabon-front.jpg",
     images: [
@@ -226,6 +248,8 @@ export const products: Product[] = [
     id: "gnq-hoodie",
     name: { en: "Equatorial Guinea 2025 Hoodie", fr: "Sweat Guinée Équatoriale 2025", ar: "هودي غينيا الاستوائية 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/d039xpff/GE-front.jpg",
     images: [
@@ -246,6 +270,8 @@ export const products: Product[] = [
     id: "mli-hoodie",
     name: { en: "Mali 2025 Hoodie", fr: "Sweat Mali 2025", ar: "هودي مالي 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/mVNt0fqj/mali-front.jpg",
     images: [
@@ -266,6 +292,8 @@ export const products: Product[] = [
     id: "mar-hoodie",
     name: { en: "Morocco 2025 Hoodie", fr: "Sweat Maroc 2025", ar: "هودي المغرب 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/Y4f6kCW0/morocco-FRONT.jpg",
     images: [
@@ -287,6 +315,8 @@ export const products: Product[] = [
     id: "moz-hoodie",
     name: { en: "Mozambique 2025 Hoodie", fr: "Sweat Mozambique 2025", ar: "هودي موزمبيق 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/Xx2HMqjD/mozambique-front.jpg",
     images: [
@@ -307,6 +337,8 @@ export const products: Product[] = [
     id: "nga-hoodie",
     name: { en: "Nigeria 2025 Hoodie", fr: "Sweat Nigéria 2025", ar: "هودي نيجيريا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/60r5cPP8/nigeria-front.jpg",
     images: [
@@ -327,6 +359,8 @@ export const products: Product[] = [
     id: "sen-hoodie",
     name: { en: "Senegal 2025 Hoodie", fr: "Sweat Sénégal 2025", ar: "هودي السنغال 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/R4Nw0cRS/senegal-front.jpg",
     images: [
@@ -347,6 +381,8 @@ export const products: Product[] = [
     id: "rsa-hoodie",
     name: { en: "South Africa 2025 Hoodie", fr: "Sweat Afrique du Sud 2025", ar: "هودي جنوب أفريقيا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/3m7KhCyD/south-africa-front.jpg",
     images: [
@@ -367,6 +403,8 @@ export const products: Product[] = [
     id: "sdn-hoodie",
     name: { en: "Sudan 2025 Hoodie", fr: "Sweat Soudan 2025", ar: "هودي السودان 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/zWX3zVPt/sudan-front.jpg",
     images: [
@@ -387,6 +425,8 @@ export const products: Product[] = [
     id: "tza-hoodie",
     name: { en: "Tanzania 2025 Hoodie", fr: "Sweat Tanzanie 2025", ar: "هودي تنزانيا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/JF8y8xCG/tanzania-front.jpg",
     images: [
@@ -407,6 +447,8 @@ export const products: Product[] = [
     id: "tun-hoodie",
     name: { en: "Tunisia 2025 Hoodie", fr: "Sweat Tunisie 2025", ar: "هودي تونس 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/q3p6GW4T/tunisia-front.jpg",
     images: [
@@ -427,6 +469,8 @@ export const products: Product[] = [
     id: "uga-hoodie",
     name: { en: "Uganda 2025 Hoodie", fr: "Sweat Ouganda 2025", ar: "هودي أوغندا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/nqp2t4G2/uganda-front.jpg",
     images: [
@@ -447,6 +491,8 @@ export const products: Product[] = [
     id: "zmb-hoodie",
     name: { en: "Zambia 2025 Hoodie", fr: "Sweat Zambie 2025", ar: "هودي زامبيا 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/h1Xph2Vt/zambia-front.jpg",
     images: [
@@ -467,6 +513,8 @@ export const products: Product[] = [
     id: "zwe-hoodie",
     name: { en: "Zimbabwe 2025 Hoodie", fr: "Sweat Zimbabwe 2025", ar: "هودي زيمبابوي 2025" },
     price: 850,
+    priceBlack: 250,
+    priceWhite: 220,
     category: "Hoodie",
     image: "https://i.ibb.co/Gzv28b5/zimbabwe-front.jpg",
     images: [

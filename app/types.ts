@@ -8,6 +8,8 @@ export interface Product {
   id: string;
   name: LocalizedString;
   price: number;
+  priceBlack?: number;
+  priceWhite?: number;
   category: 'Hoodie' | 'T-Shirt' | 'Sweater' | 'Accessories';
   image: string;
   images: string[];
