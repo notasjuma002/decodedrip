@@ -3,6 +3,7 @@ import { Poppins, Cairo } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import ClientLayout from "./components/ClientLayout";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
         <Providers>
           <ClientLayout>{children}</ClientLayout>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

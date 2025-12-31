@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -26,11 +26,58 @@ const ProductDetails: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  // Animated price state
+  const [displayPrice, setDisplayPrice] = useState(
+    product?.priceBlack ?? product?.price ?? 0
+  );
+  const animationRef = useRef<number | null>(null);
+
+  // Get current actual price based on color
+  const actualPrice = selectedColor === "Black"
+    ? (product?.priceBlack ?? product?.price ?? 0)
+    : (product?.priceWhite ?? product?.price ?? 0);
+
+  // Animate price when color changes
+  useEffect(() => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
+    const startPrice = displayPrice;
+    const endPrice = actualPrice;
+    const duration = 300; // ms
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function for smooth animation
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentPrice = Math.round(startPrice + (endPrice - startPrice) * easeOut);
+
+      setDisplayPrice(currentPrice);
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [actualPrice]);
+
   // Reset state when product changes
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(0);
       setSelectedColor("Black");
+      setDisplayPrice(product.priceBlack ?? product.price);
     }
   }, [product]);
 
@@ -159,37 +206,149 @@ const ProductDetails: React.FC = () => {
             )}
           </div>
 
-          {/* RIGHT: Product Details */}
+          {/* RIGHT: Product Details - No Scroll, Essentials First */}
           <div className="flex flex-col">
+
             {/* Category & Title */}
-            <span className="text-sm text-morocco-dark/50 uppercase tracking-wider mb-3">
+            <span className="text-sm text-morocco-dark/50 uppercase tracking-wider mb-2">
               {product.category}
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-morocco-dark leading-tight mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-morocco-dark leading-tight mb-4">
               {product.name[language]}
             </h1>
 
-            {/* Country Switcher - Compact Grid */}
-            <div className="mb-8">
+            {/* Price */}
+            <div className="flex items-baseline gap-2 mb-6">
+              <span className="text-4xl font-bold text-morocco-dark transition-all">
+                {displayPrice}
+              </span>
+              <span className="text-xl text-morocco-dark/60 font-medium">
+                MAD
+              </span>
+            </div>
+
+            {/* Options Section - Clean 2-Row Layout */}
+            <div className="space-y-5 mb-6">
+
+              {/* Row 1: Color + Quantity */}
+              <div className="flex items-center justify-between">
+                {/* Color */}
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-bold text-morocco-dark">Color</span>
+                  <div className="flex gap-2">
+                    {colors.map((color) => {
+                      const colorPrice = color.name === "Black"
+                        ? (product.priceBlack ?? product.price)
+                        : (product.priceWhite ?? product.price);
+                      return (
+                        <button
+                          key={color.name}
+                          onClick={() => handleColorChange(color.name as "Black" | "White")}
+                          className={`flex items-center gap-2 px-3 py-2 border-2 transition-all cursor-pointer ${selectedColor === color.name
+                            ? "border-morocco-dark bg-morocco-dark/5"
+                            : "border-morocco-neutral hover:border-morocco-dark/50"}`}
+                        >
+                          <div className={`w-5 h-5 ${color.bgClass}`} />
+                          <span className={`text-sm font-medium ${selectedColor === color.name ? "text-morocco-dark" : "text-morocco-dark/60"}`}>
+                            {colorPrice} MAD
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Quantity - Inline */}
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-morocco-dark">Quantity</span>
+                  <div className="flex items-center border-2 border-morocco-neutral">
+                    <button
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="w-9 h-9 flex items-center justify-center text-lg font-bold text-morocco-dark hover:bg-morocco-neutral transition-all"
+                    >
+                      −
+                    </button>
+                    <span className="w-10 h-9 flex items-center justify-center text-lg font-bold text-morocco-dark border-x-2 border-morocco-neutral">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="w-9 h-9 flex items-center justify-center text-lg font-bold text-morocco-dark hover:bg-morocco-neutral transition-all"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2: Size - Full Width */}
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-bold text-morocco-dark">Size</span>
+                <div className="flex gap-2 flex-1">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`flex-1 h-11 border-2 flex items-center justify-center font-bold text-sm transition-all cursor-pointer ${selectedSize === size
+                        ? "border-morocco-dark bg-morocco-dark text-white"
+                        : "border-morocco-neutral hover:border-morocco-dark/50 text-morocco-dark"}`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons - Always Visible */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <button
+                onClick={handleAddToCart}
+                className="bg-morocco-red text-white h-14 font-bold uppercase tracking-wider hover:bg-morocco-dark transition-all cursor-pointer"
+              >
+                {t.add_to_cart}
+              </button>
+              <button
+                onClick={handleBuyNow}
+                className="bg-morocco-dark text-white h-14 font-bold uppercase tracking-wider hover:bg-morocco-green transition-all cursor-pointer"
+              >
+                {t.checkout}
+              </button>
+            </div>
+
+            {/* Feature Badges - Below buttons */}
+            <div className="flex justify-between items-start gap-4 py-6 border-t border-dashed border-morocco-neutral">
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbTruck size={20} className="mb-1 text-morocco-dark" />
+                <span className="font-medium text-morocco-dark text-[10px]">{t.free_delivery}</span>
+              </div>
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbRefresh size={20} className="mb-1 text-morocco-dark" />
+                <span className="font-medium text-morocco-dark text-[10px]">{t.exchange_policy}</span>
+              </div>
+              <div className="flex flex-col items-center text-center flex-1">
+                <TbCash size={20} className="mb-1 text-morocco-dark" />
+                <span className="font-medium text-morocco-dark text-[10px]">{t.cash_on_delivery}</span>
+              </div>
+            </div>
+
+            {/* Country Switcher - Secondary info below */}
+            <div className="py-4 border-t border-dashed border-morocco-neutral">
+              <span className="text-xs text-morocco-dark/50 uppercase tracking-wider mb-3 block">Other Countries</span>
               <div className="flex flex-wrap gap-2">
                 {countries.map((c) => {
-                  // Find the hoodie product for this country
                   const countryProduct = products.find(
                     (p) => p.country === c.name && p.category === "Hoodie"
                   );
-
-                  // If no hoodie exists for this country, skip or disable
                   if (!countryProduct) return null;
-
                   const isActive = product.country === c.name;
-
                   return (
                     <Link
                       key={c.code}
                       href={`/product/${countryProduct.id}`}
-                      className={`flex-shrink-0 relative w-9 h-9 rounded-full overflow-hidden border-2 transition-all duration-200 ${isActive
-                        ? "border-morocco-red scale-110 ring-1 ring-morocco-red/30"
-                        : "border-morocco-neutral hover:border-morocco-gold hover:scale-105"
+                      className={`flex-shrink-0 relative w-8 h-8 rounded-full overflow-hidden border-2 transition-all duration-200 ${isActive
+                        ? "border-morocco-red scale-110"
+                        : "border-morocco-neutral/50 hover:border-morocco-gold hover:scale-105 opacity-60 hover:opacity-100"
                         }`}
                       title={c.name}
                     >
@@ -204,52 +363,22 @@ const ProductDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* Price Based on Color Selection */}
-            <div className="mb-8 pb-6 border-b border-morocco-neutral">
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold text-morocco-dark">
-                  {selectedColor === "Black"
-                    ? (product.priceBlack ?? product.price)
-                    : (product.priceWhite ?? product.price)}
-                </span>
-                <span className="text-xl text-morocco-dark/60 font-medium">
-                  MAD
-                </span>
-              </div>
-            </div>
-
-            {/* Feature Badges Row */}
-            <div className="flex justify-between items-start gap-4 mb-8">
-              <div className="flex flex-col items-center text-center flex-1">
-                <TbTruck size={24} className="mb-2 text-morocco-dark" />
-                <span className="font-bold text-morocco-dark text-xs">{t.free_delivery}</span>
-              </div>
-              <div className="flex flex-col items-center text-center flex-1">
-                <TbRefresh size={24} className="mb-2 text-morocco-dark" />
-                <span className="font-bold text-morocco-dark text-xs">{t.exchange_policy}</span>
-              </div>
-              <div className="flex flex-col items-center text-center flex-1">
-                <TbCash size={24} className="mb-2 text-morocco-dark" />
-                <span className="font-bold text-morocco-dark text-xs">{t.cash_on_delivery}</span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="mb-8 border-t border-morocco-neutral pt-6">
-              <h3 className="font-bold text-morocco-dark mb-3 text-sm uppercase tracking-wider">
+            {/* Description - Compact */}
+            <div className="py-4 border-t border-2 border-dashed border-morocco-neutral">
+              <h3 className="font-bold text-morocco-dark mb-2 text-xs uppercase tracking-wider">
                 {t.product_description_title}
               </h3>
-              <p className="text-morocco-dark/70 leading-relaxed">
+              <p className="text-morocco-dark/60 text-sm leading-relaxed">
                 {t.product_description}
               </p>
             </div>
 
-            {/* Product Details */}
-            <div className="mb-8">
-              <h3 className="font-bold text-morocco-dark mb-3 text-sm uppercase tracking-wider">
+            {/* Product Details - Compact */}
+            <div className="py-4 border-t border-dashed border-morocco-neutral">
+              <h3 className="font-bold text-morocco-dark mb-2 text-xs uppercase tracking-wider">
                 {t.product_details_title}
               </h3>
-              <ul className="space-y-2 text-morocco-dark/70">
+              <ul className="space-y-1 text-morocco-dark/60 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-morocco-gold">•</span>
                   <span>{t.product_detail_1}</span>
@@ -271,86 +400,6 @@ const ProductDetails: React.FC = () => {
                   <span>{t.product_detail_5}</span>
                 </li>
               </ul>
-            </div>
-
-            {/* Color Selection - Black & White Only */}
-            <div className="mb-8">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="font-bold text-morocco-dark">Color:</span>
-                <span className="text-morocco-dark/70">{selectedColor}</span>
-              </div>
-              <div className="flex gap-3">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() =>
-                      handleColorChange(color.name as "Black" | "White")
-                    }
-                    className={`w-14 h-14 border-2 flex items-center justify-center transition-all cursor-pointer ${selectedColor === color.name ? "border-morocco-dark ring-2 ring-morocco-dark/30 scale-110" : "border-morocco-neutral hover:border-morocco-dark/50 hover:scale-105"}`}
-                  >
-                    <div className={`w-10 h-10 ${color.bgClass}`} />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quantity Selector */}
-            <div className="mb-8">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="font-bold text-morocco-dark">Quantity:</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-12 border-2 border-morocco-neutral hover:border-morocco-dark flex items-center justify-center text-xl font-bold text-morocco-dark transition-all hover:bg-morocco-neutral"
-                >
-                  −
-                </button>
-                <span className="text-2xl font-bold text-morocco-dark min-w-[3rem] text-center">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-12 h-12 border-2 border-morocco-neutral hover:border-morocco-dark flex items-center justify-center text-xl font-bold text-morocco-dark transition-all hover:bg-morocco-neutral"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            {/* Size Selection - S, M, L, XL */}
-            <div className="mb-10">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="font-bold text-morocco-dark">Size:</span>
-                <span className="text-morocco-dark/70">{selectedSize}</span>
-              </div>
-              <div className="flex gap-3">
-                {sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`w-14 h-14 border-2 flex items-center justify-center font-bold text-lg transition-all cursor-pointer ${selectedSize === size ? "border-morocco-dark bg-morocco-dark text-white" : "border-morocco-neutral hover:border-morocco-dark/50 text-morocco-dark"}`}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                onClick={handleAddToCart}
-                className="bg-morocco-red text-white h-16 font-bold uppercase tracking-wider hover:bg-morocco-dark transition-all shadow-lg hover:shadow-xl"
-              >
-                {t.add_to_cart}
-              </button>
-              <button
-                onClick={handleBuyNow}
-                className="bg-morocco-dark text-white h-16 font-bold uppercase tracking-wider hover:bg-morocco-green transition-all shadow-lg hover:shadow-xl"
-              >
-                {t.checkout}
-              </button>
             </div>
           </div>
         </div>
