@@ -23,6 +23,7 @@ export interface CartItem extends Product {
   selectedColor: 'Black' | 'White';
   selectedSize: string;
   quantity: number;
+  effectivePrice: number;
 }
 
 export interface OrderData {

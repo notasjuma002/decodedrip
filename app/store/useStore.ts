@@ -12,6 +12,7 @@ interface AppState {
   toggleCart: (isOpen?: boolean) => void;
   addToCart: (product: Product, color: 'Black' | 'White', size: string, quantity: number) => void;
   removeFromCart: (cartId: string) => void;
+  updateQuantity: (cartId: string, newQuantity: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
 }
@@ -30,6 +31,11 @@ export const useStore = create<AppState>()(
       })),
 
       addToCart: (product, color, size, quantity) => set((state) => {
+        // Calculate the effective price based on color selection
+        const effectivePrice = color === 'Black'
+          ? (product.priceBlack ?? product.price)
+          : (product.priceWhite ?? product.price);
+
         const existingItemIndex = state.cart.findIndex(
           (item) => item.id === product.id && item.selectedColor === color && item.selectedSize === size
         );
@@ -46,6 +52,7 @@ export const useStore = create<AppState>()(
             selectedColor: color,
             selectedSize: size,
             quantity,
+            effectivePrice,
             cartId: `${product.id}-${color}-${size}-${Date.now()}`
           };
           return { cart: [...state.cart, newItem] };
@@ -56,11 +63,21 @@ export const useStore = create<AppState>()(
         cart: state.cart.filter(item => item.cartId !== cartId)
       })),
 
+      updateQuantity: (cartId, newQuantity) => set((state) => {
+        if (newQuantity < 0) {
+          newQuantity = 0;
+        }
+        const newCart = state.cart.map(item =>
+          item.cartId === cartId ? { ...item, quantity: newQuantity } : item
+        );
+        return { cart: newCart };
+      }),
+
       clearCart: () => set({ cart: [] }),
 
       getCartTotal: () => {
         const { cart } = get();
-        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        return cart.reduce((total, item) => total + (item.effectivePrice * item.quantity), 0);
       }
     }),
     {

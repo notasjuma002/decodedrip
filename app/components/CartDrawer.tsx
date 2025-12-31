@@ -58,7 +58,7 @@ const CartDrawer: React.FC = () => {
                     <p className="text-sm text-morocco-dark/60">{t.common.quantity}: {item.quantity}</p>
                   </div>
                   <div className="flex justify-between items-center mt-2">
-                    <span className="font-bold text-morocco-green">{item.price * item.quantity} MAD</span>
+                    <span className="font-bold text-morocco-green">{item.effectivePrice * item.quantity} MAD</span>
                     <button
                       onClick={() => removeFromCart(item.cartId)}
                       className="text-morocco-red/70 hover:text-morocco-red p-1"

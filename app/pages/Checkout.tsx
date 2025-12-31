@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { FaTrash } from 'react-icons/fa';
 import { useStore } from '@/app/store/useStore';
 import { locales, cafCountries } from '@/app/locales';
 
@@ -59,7 +60,7 @@ const countryFlags: { [key: string]: string } = {
 };
 
 const Checkout: React.FC = () => {
-  const { cart, getCartTotal, language, clearCart } = useStore();
+  const { cart, getCartTotal, language, clearCart, removeFromCart, updateQuantity } = useStore();
   const router = useRouter();
   const t = locales[language].checkout;
   const commonT = locales[language].common;
@@ -267,8 +268,8 @@ const Checkout: React.FC = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className={`w-full bg-morocco-dark text-white py-4 font-semibold uppercase tracking-wide hover:bg-morocco-red transition-colors mt-6 cursor-pointer ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isSubmitting || cart.some(item => item.quantity === 0)}
+                className={`w-full bg-morocco-dark text-white py-4 font-semibold uppercase tracking-wide hover:bg-morocco-red transition-colors mt-6 cursor-pointer ${isSubmitting || cart.some(item => item.quantity === 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isSubmitting ? 'Processing...' : t.submit}
               </button>
@@ -285,23 +286,66 @@ const Checkout: React.FC = () => {
               {/* Cart Items */}
               <div className="space-y-4 mb-6">
                 {cart.map(item => (
-                  <div key={item.cartId} className="flex gap-4">
+                  <div key={item.cartId} className={`flex gap-4 p-4 bg-morocco-neutral/30 border rounded-xl ${item.quantity === 0 ? 'border-morocco-red/50 bg-morocco-red/5' : 'border-morocco-gold/20'}`}>
+                    {/* Product Image */}
                     <div className="relative flex-shrink-0">
                       <img
                         src={item.image}
                         alt={item.name[language]}
-                        className="w-16 h-16 object-cover rounded"
+                        className="w-24 h-24 object-cover rounded-lg"
                       />
-                      <div className="absolute -top-2 -right-2 bg-black text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold">
-                        {item.quantity}
+                    </div>
+
+                    {/* Product Info */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between">
+                      <div>
+                        <p className="font-bold text-morocco-dark text-base truncate">{item.name[language]}</p>
+                        <p className="text-sm text-morocco-dark/60 capitalize mt-1">
+                          <span className="inline-flex items-center gap-1">
+                            <span className={`w-3 h-3 rounded-full ${item.selectedColor === 'Black' ? 'bg-black' : 'bg-white border border-gray-300'}`}></span>
+                            {item.selectedColor}
+                          </span>
+                          <span className="mx-2">•</span>
+                          {item.selectedSize}
+                        </p>
+                      </div>
+
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-3 mt-3">
+                        <div className="flex items-center bg-white rounded-full border-2 border-morocco-dark/20">
+                          <button
+                            onClick={() => updateQuantity(item.cartId, item.quantity - 1)}
+                            className="w-10 h-10 flex items-center justify-center rounded-full text-white bg-morocco-dark hover:bg-morocco-red transition-all text-xl font-bold"
+                          >
+                            −
+                          </button>
+                          <span className={`w-12 text-center font-bold text-lg ${item.quantity === 0 ? 'text-morocco-red' : 'text-morocco-dark'}`}>{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.cartId, item.quantity + 1)}
+                            className="w-10 h-10 flex items-center justify-center rounded-full text-white bg-morocco-dark hover:bg-morocco-green transition-all text-xl font-bold"
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => removeFromCart(item.cartId)}
+                          className="w-10 h-10 flex items-center justify-center rounded-full bg-morocco-red text-white hover:bg-morocco-dark transition-all"
+                        >
+                          <FaTrash size={14} />
+                        </button>
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-morocco-dark text-sm truncate">{item.name[language]}</p>
-                      <p className="text-xs text-gray-500 capitalize">{item.selectedColor} • {item.selectedSize}</p>
-                    </div>
-                    <div className="font-semibold text-morocco-dark whitespace-nowrap">
-                      {item.price * item.quantity} MAD
+
+                    {/* Price */}
+                    <div className="flex flex-col items-end justify-between">
+                      <span className={`font-bold text-lg ${item.quantity === 0 ? 'text-morocco-red' : 'text-morocco-dark'}`}>
+                        {item.effectivePrice * item.quantity} MAD
+                      </span>
+                      <span className="text-xs text-morocco-dark/50">
+                        {item.effectivePrice} MAD × {item.quantity}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -313,10 +357,19 @@ const Checkout: React.FC = () => {
                   <span className="text-gray-600">Subtotal</span>
                   <span className="font-medium text-morocco-dark">{getCartTotal()} MAD</span>
                 </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">{commonT.free_delivery}</span>
+                  <span className="font-medium text-morocco-green">0 MAD</span>
+                </div>
                 <div className="flex justify-between text-lg font-semibold pt-2 border-t border-gray-200">
-                  <span className="text-morocco-dark">Total</span>
+                  <span className="text-morocco-dark">{commonT.total}</span>
                   <span className="text-morocco-dark">{getCartTotal()} MAD</span>
                 </div>
+                {cart.some(item => item.quantity === 0) && (
+                  <p className="text-sm text-morocco-red text-center mt-2">
+                    ⚠️ Please update quantities before checkout
+                  </p>
+                )}
               </div>
             </div>
           </div>
