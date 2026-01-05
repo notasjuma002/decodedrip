@@ -91,6 +91,9 @@ export const fr: TranslationStructure = {
     submit: "Confirmer la commande",
     success_alert:
       "Commande soumise avec succès !",
+    success_title: "Ça a l'air parfait !",
+    success_message: "Votre commande a été envoyée. Nous vous contacterons sous peu pour confirmer les détails.",
+    order_ref_label: "Réf. commande",
     empty_cart: "Votre panier est vide.",
   },
   faq: {

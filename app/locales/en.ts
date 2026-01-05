@@ -90,6 +90,9 @@ export const en: TranslationStructure = {
     notes: "Notes (Optional)",
     submit: "Confirm Order",
     success_alert: "Order successfully submitted! Check console for details.",
+    success_title: "Looks great!",
+    success_message: "Your order has been sent. We will contact you shortly to confirm the details.",
+    order_ref_label: "Order ref",
     empty_cart: "Your cart is empty.",
   },
   faq: {

@@ -80,6 +80,8 @@ const Checkout: React.FC = () => {
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [orderRef, setOrderRef] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -108,9 +110,9 @@ const Checkout: React.FC = () => {
 
       if (result.success) {
         console.log('✅ Order submitted successfully!');
-        alert(t.success_alert);
         clearCart();
-        router.push('/');
+        setOrderRef(result.orderId ?? null);
+        setShowSuccessModal(true);
       } else {
         console.error('❌ Order failed:', result.error);
         alert(`Failed to submit order: ${result.error}`);
@@ -123,7 +125,7 @@ const Checkout: React.FC = () => {
     }
   };
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && !showSuccessModal) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
         <h2 className="text-3xl font-bold text-morocco-dark mb-4">{t.empty_cart}</h2>
@@ -171,10 +173,9 @@ const Checkout: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm text-morocco-dark/80 mb-2">
-                    {t.email}<span className="text-red-500">*</span>
+                    {t.email} <span className="text-sm text-morocco-dark/50">(Optional)</span>
                   </label>
                   <input
-                    required
                     name="email"
                     type="email"
                     value={formData.email}
@@ -375,6 +376,36 @@ const Checkout: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowSuccessModal(false)} />
+          <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full p-8 mx-4">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-20 h-20 rounded-full bg-morocco-green/10 flex items-center justify-center text-morocco-green text-3xl">
+                ✅
+              </div>
+              <h3 className="text-2xl font-bold text-morocco-dark">{t.success_title}</h3>
+              <p className="text-morocco-dark/70 text-center">{t.success_message}</p>
+              {orderRef && <p className="text-sm text-morocco-dark/50">{t.order_ref_label}: {orderRef}</p>}
+              <div className="mt-4 w-full grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => { setShowSuccessModal(false); router.push('/'); }}
+                  className="w-full bg-morocco-dark text-white py-3 rounded-none font-semibold"
+                >
+                  Back to shop
+                </button>
+                <button
+                  onClick={() => setShowSuccessModal(false)}
+                  className="w-full bg-white border border-morocco-dark py-3 rounded-none font-semibold"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

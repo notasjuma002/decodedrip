@@ -87,6 +87,9 @@ export const ar: TranslationStructure = {
     notes: "ملاحظات (اختياري)",
     submit: "تأكيد الطلب",
     success_alert: "تم تقديم الطلب بنجاح! تحقق من وحدة التحكم للتفاصيل.",
+    success_title: "رائع!",
+    success_message: "تم إرسال طلبك. سنتواصل معك قريبًا لتأكيد التفاصيل.",
+    order_ref_label: "رقم الطلب",
     empty_cart: "عربة التسوق فارغة."
   },
   faq: {
