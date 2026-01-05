@@ -19,7 +19,7 @@ const ProductDetails: React.FC = () => {
   const product = products.find((p) => p.id === id);
 
   const [selectedColor, setSelectedColor] = useState<"Black" | "White">(
-    "Black",
+    product?.category === "Hoodie" ? "White" : "Black",
   );
   const [selectedSize, setSelectedSize] = useState<string>("M");
   const sizes = ["S", "M", "L", "XL"];
@@ -28,7 +28,7 @@ const ProductDetails: React.FC = () => {
 
   // Animated price state
   const [displayPrice, setDisplayPrice] = useState(
-    product?.priceBlack ?? product?.price ?? 0
+    product ? (product.category === "Hoodie" ? (product.priceWhite ?? product.price) : (product.priceBlack ?? product.price)) : 0
   );
   const animationRef = useRef<number | null>(null);
 
@@ -76,8 +76,9 @@ const ProductDetails: React.FC = () => {
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(0);
-      setSelectedColor("Black");
-      setDisplayPrice(product.priceBlack ?? product.price);
+      const defaultColor = product.category === "Hoodie" ? "White" : "Black";
+      setSelectedColor(defaultColor);
+      setDisplayPrice(defaultColor === "Black" ? (product.priceBlack ?? product.price) : (product.priceWhite ?? product.price));
     }
   }, [product]);
 
